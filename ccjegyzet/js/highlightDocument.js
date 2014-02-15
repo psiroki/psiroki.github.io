@@ -25,7 +25,7 @@ $(function() {
 			$.ajax({
 				url: ref,
 				success: function(content) {
-					pre.textContent = content.replace(/^\t+/g, function(r) {
+					pre.textContent = content.replace(/^\t+/gm, function(r) {
 						var parts = [];
 						for(var i=0; i<r.length; ++i)
 							parts[i] = "    ";
