@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <title>C++ jegyzet</title>
 <link rel="stylesheet" href="css/sh_style.css"/>
+<link rel="stylesheet" href="css/notes.css"/>
 </head>
 <body>
 <ol>
@@ -19,6 +20,14 @@ linker).</p>
 <p>A preprocesszálás végeredménye ritkán jelenik meg külön állományként, a
 fordítás részeként fut le.</p>
 <pre class="sh_cpp" data-source="preproctest/preproctest.cc"></pre>
+<pre class="sh_cpp" data-source="preproctest/some_header.h"></pre>
+<p>Ha azt akarjuk, hogy a fordító csak preprocesszáljon, akkor a -E
+kapcsolót kell használnunk gcc vagy clang esetén. Ekkor a stdoutra kiírja
+azt, ami egyébként a fordítónak ment volna. Ha a kimenetet megnézzük, az
+include egyszerűen csak beilleszti a megadott állományt a forrásba, ezen
+kívül belekerül pár különös jel, ezekkel tud a fordító a hibakijelzésnél
+az eredeti források soraira hivatkozni.</p>
+<pre class="console" data-source="preproctest/output.txt"></pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>

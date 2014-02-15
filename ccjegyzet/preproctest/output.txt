@@ -1,0 +1,19 @@
+$ clang -E preproctest.cc 
+# 1 "preproctest.cc"
+# 1 "<built-in>" 1
+# 1 "<built-in>" 3
+# 167 "<built-in>" 3
+# 1 "<command line>" 1
+# 1 "<built-in>" 2
+# 1 "preproctest.cc" 2
+# 1 "./some_header.h" 1
+struct Something
+{
+ int a, b;
+};
+# 2 "preproctest.cc" 2
+
+int main()
+{
+ return 0;
+}

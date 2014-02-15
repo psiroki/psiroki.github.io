@@ -1,5 +1,5 @@
 $(function() {
-	var HIGHLIGHTED = /^sh_.*$/;
+	var HIGHLIGHTED = /^sh_.*|console$/;
 	var requestsStarted = 0;
 	var checkRequests = function() { };
 	$("pre").each(function() {
@@ -19,6 +19,11 @@ $(function() {
 		var figure = document.createElement("figure");
 		var ref = pre.getAttribute("data-source");
 		$(figure).insertBefore(pre).append($("<figcaption/>").text(ref)).append(pre);
+		if($(pre).hasClass("console"))
+		{
+			$(pre).removeClass("console");
+			$(figure).addClass("console");
+		}
 		if(ref)
 		{
 			++requestsStarted;
