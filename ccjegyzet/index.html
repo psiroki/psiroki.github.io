@@ -52,6 +52,17 @@ tenni. Ezt teszi minden egyes rendszerkönyvtár.</p>
 <pre class="sh_cpp" data-source="refer2/util.h"></pre>
 <pre class="sh_cpp" data-source="refer2/util.cc"></pre>
 <pre class="console" data-source="refer2/output.txt"></pre>
+<p>Előfordulhat, hogy a <code>util.h</code>-ban definiált
+<code>Record</code> típust használja több modul is, pl. a függvények
+paraméterlistájában. Elkerülhetetlen, hogy emiatt közvetve többször is
+befűződjön a <code>util.h</code>. A típust újradeklarálni viszont nem
+lehet.</p>
+<pre class="sh_cpp" data-source="refer2/include.cc"></pre>
+<pre class="console" data-source="refer2/include.txt"></pre>
+<p>Ezért szokás a fejléceket makrókkal körülbástyázni, hogy ha újra
+megjelennének egy fordítási egységben, akkor lényegében nem tartalmaznak
+semmit.</p>
+<pre class="sh_cpp" data-source="refer2/util_safe.h"></pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>

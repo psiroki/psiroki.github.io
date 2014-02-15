@@ -1,0 +1,9 @@
+$ clang -c include.cc 
+In file included from include.cc:2:
+./util.h:2:8: error: redefinition of 'Record'
+struct Record
+       ^
+./util.h:2:8: note: previous definition is here
+struct Record
+       ^
+1 error generated.
