@@ -2,7 +2,7 @@ $(function() {
 	var HIGHLIGHTED = /^sh_.*|console$/;
 	var requestsStarted = 0;
 	var checkRequests = function() { };
-	$("pre").each(function() {
+	$("pre, code").each(function() {
 		var pre = this;
 		var classes = this.className.split(/\s+/);
 		var skip = true;
@@ -16,15 +16,25 @@ $(function() {
 		}
 		if(skip)
 			return;
-		var figure = document.createElement("figure");
-		var ref = pre.getAttribute("data-source");
-		$(figure).insertBefore(pre).append($("<figcaption/>")
-			.append($("<a/>", { href: ref }).text(ref))).append(pre);
-		if($(pre).hasClass("console"))
+		var ref = this.getAttribute("data-source");
+		if(!$("pre").hasClass("inline") && this.nodeName.toLowerCase() != "code")
 		{
-			$(pre).removeClass("console");
-			$(figure).addClass("console");
+			var figure = $("<figure/>");
+			
+			figure.insertBefore(pre).append(pre);
+			
+			if(ref) {
+				figure.prepend($("<figcaption/>")
+					.append($("<a/>", { href: ref }).text(ref)))
+			}
+			
+			if($(pre).hasClass("console"))
+			{
+				$(pre).removeClass("console");
+				figure.addClass("console");
+			}
 		}
+		
 		if(ref)
 		{
 			++requestsStarted;
@@ -48,7 +58,10 @@ $(function() {
 	
 	checkRequests = function() {
 		if(requestsStarted <= 0)
+		{
 			sh_highlightDocument();
+			sh_highlightNodeList(document.getElementsByTagName("code"));
+		}
 	};
 	
 	checkRequests();

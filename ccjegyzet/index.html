@@ -64,6 +64,48 @@ lehet.</p>
 megjelennének egy fordítási egységben, akkor lényegében nem tartalmaznak
 semmit.</p>
 <pre class="sh_cpp" data-source="refer2/util_safe.h"></pre>
+<p>A gyakorlatban minden népszerű fordító támogatja a nem szabványos
+<code class="inline sh_cpp">#pragma once</code> direktívát, amivel ugyanezt
+lehet <a href="http://en.wikipedia.org/wiki/Pragma_once">egyetlen plusz sorral
+megvalósítani</a>. A vizsgán ne használd.</p>
+<p>Minden olyan függvényt, amit nem használunk modulon kívüli használatra
+érdemes úgy deklarálnunk, hogy azt más modulok még véletlenül se érhessék
+el, hogy egy nagyobb program esetén ne érjenek kellemetlen meglepetések.
+C-ben ezt a static kulcsszó használatával lehet elérni, C++-ban lehetőség
+van static kulcsszót használni vagy névtelen névteret létrehozni (a
+névterekről később).</p>
+<pre class="sh_cpp" data-source="refer3/util.cc"></pre>
+<pre class="sh_cpp" data-source="refer3/refer3.cc"></pre>
+<pre class="console" data-source="refer3/output.txt"></pre>
+<p>A példában a <code>foo</code> változót megtalálta, de a <code>bar</code>t
+nem.</p>
+<h2>Összeállítás</h2>
+<p>A linker feladata, hogy eldöntse, hogy futás során hol fognak
+elhelyezkedni a memóriában a globális változók és a függvények gépi kódja,
+és hogy ez utóbbiak a már megállapított címen keressék őket.</p>
+<p>Nagyon fontos tudni, hogy a linkerben a C++ már díszített (decorated)
+neveket használ, ellentétben a C-vel, mert C++-ban már nem elég pusztán a
+függvény nevét tudni a beazonosításhoz.</p>
+<pre class="sh_cpp" data-source="link1/util.c"></pre>
+<pre class="sh_cpp" data-source="link1/link1.cc"></pre>
+<pre class="console" data-source="link1/output.txt"></pre>
+<p>A C++ kód nem látta azt a C függvényt, amelyiket nem <code
+class="sh_cpp">extern "C"</code> kulcsszóval deklaráltunk, illetve a C kód
+nem látta azt a C függvényt, amit nem ezzel a kulcsszóval definiáltunk.</p>
+<p>Az <code class="sh_cpp">extern "C"</code> lényegében azt mondja: &bdquo;erre a
+deklarációra vagy definícióra ne használj díszített neveket!&rdquo; Van
+<code class="sh_cpp">extern "C" { /* ... */ }</code> formája is, amivel
+egyszerre több deklarációra vagy definícióra lehet ezt a módot beállítani.
+Elsősorban C rutinkönyvtárak fejléceiben találkozni vele:</p>
+<pre class="sh_cpp">#ifdef __cplusplus
+extern "C" {
+#endif
+
+/* ... */
+
+#ifdef __cplusplus
+}
+#endif</pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>

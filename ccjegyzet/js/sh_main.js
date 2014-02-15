@@ -504,14 +504,7 @@ function sh_load(language, element, prefix, suffix) {
   request.send(null);
 }
 
-/**
-Highlights all elements containing source code on the current page. Elements
-containing source code must be "pre" elements with a "class" attribute of
-"sh_LANGUAGE", where LANGUAGE is a valid language identifier; e.g., "sh_java"
-identifies the element as containing "java" language source code.
-*/
-function sh_highlightDocument(prefix, suffix) {
-  var nodeList = document.getElementsByTagName('pre');
+function sh_highlightNodeList(nodeList, prefix, suffix) {
   for (var i = 0; i < nodeList.length; i++) {
     var element = nodeList.item(i);
     var htmlClasses = sh_getClasses(element);
@@ -535,4 +528,15 @@ function sh_highlightDocument(prefix, suffix) {
       }
     }
   }
+}
+
+/**
+Highlights all elements containing source code on the current page. Elements
+containing source code must be "pre" elements with a "class" attribute of
+"sh_LANGUAGE", where LANGUAGE is a valid language identifier; e.g., "sh_java"
+identifies the element as containing "java" language source code.
+*/
+function sh_highlightDocument(prefix, suffix) {
+  var nodeList = document.getElementsByTagName('pre');
+  sh_highlightNodeList(nodeList, prefix, suffix);
 }
