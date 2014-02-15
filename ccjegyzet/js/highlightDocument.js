@@ -16,7 +16,7 @@ $(function() {
 		}
 		if(skip)
 			return;
-		var ref = data.getAttribute("data-source");
+		var ref = pre.getAttribute("data-source");
 		if(ref)
 		{
 			++requestsStarted;
