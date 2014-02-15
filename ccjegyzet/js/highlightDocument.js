@@ -16,14 +16,21 @@ $(function() {
 		}
 		if(skip)
 			return;
+		var figure = document.createElement("figure");
 		var ref = pre.getAttribute("data-source");
+		$(figure).append($("<figcaption/>").text(ref)).append(pre);
 		if(ref)
 		{
 			++requestsStarted;
 			$.ajax({
 				url: ref,
 				success: function(content) {
-					pre.textContent = content;
+					pre.textContent = content.replace(/^\t+/g, function(r) {
+						var parts = [];
+						for(var i=0; i<r.length; ++i)
+							parts[i] = "    ";
+						return parts.join("");
+					});
 				},
 				complete: function() {
 					--requestsStarted;
