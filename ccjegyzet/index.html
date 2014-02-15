@@ -5,6 +5,7 @@
 <title>C++ jegyzet</title>
 <link rel="stylesheet" href="css/sh_style.css"/>
 <link rel="stylesheet" href="css/notes.css"/>
+<meta name="viewport" content="width=device-width, user-scalable=no"/>
 </head>
 <body>
 <ol>
@@ -28,6 +29,29 @@ include egyszerűen csak beilleszti a megadott állományt a forrásba, ezen
 kívül belekerül pár különös jel, ezekkel tud a fordító a hibakijelzésnél
 az eredeti források soraira hivatkozni.</p>
 <pre class="console" data-source="preproctest/output.txt"></pre>
+<h2>Fordítás</h2>
+<p>A fordítás során minden egyes <code>.cc</code>/<code>.cpp</code>
+forrásból objektum állomány (<code>.o</code>/<code>.obj</code>) készül.
+Az objektum állomány tartalmazza, a változók neveit, a függvények neveit
+és gépi kódú forrását, valamint hogy ezek a függvények hol hivatkoznak meg
+változókat és más függvényeket. Itt még nincs eldöntve, hogy a memóriában
+hol fognak az egyes függvény kódok és globális változók elhelyezkedni.</p>
+<p>A külső nevek típusának az ellenőrzése a fordító feladata, de ahhoz, hogy
+ezt megtehesse, tudnia kell róla.</p>
+<pre class="sh_cpp" data-source="refer1/refer1.cc"></pre>
+<pre class="sh_cpp" data-source="refer1/util.cc"></pre>
+<p>Ha azt akarjuk, hogy csak a preprocesszáló és a fordító fusson le,
+használjuk a <code>-c</code> kapcsolót.</p>
+<pre class="console" data-source="refer1/output.txt"></pre>
+<p>A máshol definiált függvényeket és globális változókat deklarálni minden
+egyes forrásban, ahol használni akarjuk komoly hibaforrás és rengeteg
+pluszmunka, ezért szokás egy <code>.h</code> forrásba beletenni mindazon
+változókat és függvényeket, amit egy másik modul számára elérhetővé akarunk
+tenni. Ezt teszi minden egyes rendszerkönyvtár.</p>
+<pre class="sh_cpp" data-source="refer2/refer2.cc"></pre>
+<pre class="sh_cpp" data-source="refer2/util.h"></pre>
+<pre class="sh_cpp" data-source="refer2/util.cc"></pre>
+<pre class="console" data-source="refer2/output.txt"></pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>

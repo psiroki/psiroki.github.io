@@ -18,7 +18,8 @@ $(function() {
 			return;
 		var figure = document.createElement("figure");
 		var ref = pre.getAttribute("data-source");
-		$(figure).insertBefore(pre).append($("<figcaption/>").text(ref)).append(pre);
+		$(figure).insertBefore(pre).append($("<figcaption/>")
+			.append($("<a/>", { href: ref }).text(ref))).append(pre);
 		if($(pre).hasClass("console"))
 		{
 			$(pre).removeClass("console");

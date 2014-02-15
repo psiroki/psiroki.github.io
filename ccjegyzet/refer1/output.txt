@@ -1,0 +1,4 @@
+$ clang -c refer1.cc
+$ clang -c util.cc
+$ ls *.o
+refer1.o util.o
