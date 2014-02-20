@@ -25,7 +25,9 @@ int& good()
 
 // Nem OK, a val mar nem letezik, amikor a fuggveny erteket felhasznalna
 // A fordito nem fog hibat jelezni (de figyelmeztethet).
-// Meg jol is mukodhet, de kellemetlen meglepeteseket okozhat
+// Meg jol is mukodhet néhány esetben, más esetekben viszont kellemetlen
+// meglepeteseket okozhat. Ha szeretnenk, hogy a programunk ne szalljon
+// el veletlenszeruen, ne tegyunk ilyet. Meg egyebkent sem :)
 int& bad()
 {
 	int val = 1;
