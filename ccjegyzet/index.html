@@ -110,8 +110,77 @@ extern "C" {
 </section>
 <section id="newLanguageElements">
 <h1>Új nyelvi elemek</h1>
-<h2>A <code>const</code> kulcsszó</h2>
-<p></p>
+<h2>A <code class="sh_cpp">const</code> kulcsszó</h2>
+<p>Előnyei:</p>
+<ul>
+<li>Ha átadok egy mutatót egy függvénynek, biztos lehetek, hogy nem fog a
+tartalma változni, és a fordítót is biztosítom erről: ennek megfelelően
+optimizálhatja a kódot</li>
+<li>Elegánsabban lehet vele konstanst definiálni, mint a <code
+class="sh_cpp">#define</code> direktívával: a konstansnak lesz típusa, és
+lehet címe (a prefix &amp; operátorral)</li>
+</ul>
+<pre class="sh_cpp" data-source="new/const.cc"></pre>
+<pre class="console" data-source="new/const.txt"></pre>
+<h2>Egyszerűbb függvény deklaráció</h2>
+<p>C-ben a <code class="sh_cpp">int main()</code> <code class="sh_cpp">int
+main(...)</code>-nak felelt meg, a paraméter nélküli függvényeket <code
+class="sh_cpp">int main(void)</code>-ként kellett deklarálni. C++-ban ez már
+nem érvényes, a <code class="sh_cpp">int main()</code> ekvivalens a <code
+class="sh_cpp">int main(void)</code> deklarációval.</p>
+<h2>Változó deklaráció bárhol</h2>
+<p>Bárhol lehet változót deklarálni, nem csak a blokkok elején és a
+for ciklusokban.</p>
+<pre class="sh_cpp" data-source="new/decl.cc"></pre>
+<h2>Függvények túlterhelése</h2>
+<p>A függvényeket már nem csak a nevük, hanem a paraméterlistájuk is
+azonosítja, amíg egyértelmű.</p>
+<pre class="sh_cpp" data-source="new/overload.cc"></pre>
+<pre class="console" data-source="new/overload.txt"></pre>
+<p>Többek között emiatt van szükség az <code class="sh_cpp">extern "C"</code>
+módosítóra.</p>
+<h2>Függvény paraméter alapértelmezett értékek</h2>
+<p>A függvény utolsó paramétereinek adhatunk alapértelmezett értéket, ezzel
+azok a paraméterek elhagyhatóvá válnak.</p>
+<pre class="sh_cpp" data-source="new/default.cc"></pre>
+<pre class="console" data-source="new/default.txt"></pre>
+<h2>Referenciák</h2>
+<p>Mutatók mellett referenciákat is használhatunk. A háttérben ezek is
+mutatók, de nem tudjuk a mutató értékét megváltoztatni, csak azt az értéket,
+amire mutat. Ha a referenciát const kulcsszóval deklaráljuk, a fordító képes
+automatikusan ideiglenes változót létrehozni, ha kell (lásd a példát).</p>
+<pre class="sh_cpp" data-source="new/ref.cc"></pre>
+<pre class="console" data-source="new/ref.txt"></pre>
+<h2><code class="sh_cpp">inline</code> függvények</h2>
+<p>A <code class="sh_cpp">#define</code> direktívával létrehozott
+makró-függvényeknek kellemetlen mellékhatásai lehetnek:</p>
+<pre class="sh_cpp">#define MUL(a, b) a*b
+// ...
+#define SIX 1+5
+#define NINE 8+1
+int val = MUL(SIX, NINE);
+// val erteke 42 (nem 54)</pre>
+<p>Zárójelezéssel javíthatunk rajta, a deklaráció nem lett szebb, és még így
+is problémáink akadhatnak:</p>
+<pre class="sh_cpp">#define MAX(a, b) ((a)>(b)?(a):(b))
+// ...
+int a = 6;
+int b = 5;
+int val = MAX(++a, b);
+// a es val erteke mar 8</pre>
+<p>Ezen kívül nincsenek típusdeklarációk, nem lehet használni a
+túlterhelést, az alapértelmezett értékeket, és egyebeket, amikről eddig nem
+volt szó. De szeretnénk, ha nem hajtana végre külön függvényhívást, ha a
+fordító is úgy gondolja, hogy ez kézenfekvő.</p>
+<pre class="sh_cpp">int max(int a, int b)
+{
+    return a > b ? a : b;
+}
+// ...
+int a = 6;
+int b = 5;
+int val = max(++a, b);
+// a es val erteke 7</pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>

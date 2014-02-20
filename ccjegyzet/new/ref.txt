@@ -1,0 +1,8 @@
+$ clang -c ref.cc
+ref.cc:28:2: error: no matching function for call to 'add3'
+        add3(v, 5, 6);
+        ^~~~
+ref.cc:13:6: note: candidate function not viable: expects an l-value for 2nd argument
+void add3(int &dest, int &a, int &b)
+     ^
+1 error generated.

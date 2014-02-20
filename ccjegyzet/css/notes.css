@@ -42,10 +42,17 @@ figcaption a:hover
 	text-decoration: underline;
 }
 
+pre
+{
+	overflow: visible;
+	overflow-x: auto;
+}
+
 pre.inline
 {
 	display: inline;
 	margin: 0;
+	overflow: visible;
 }
 
 h1, h2, h3, h4, h5, h6
