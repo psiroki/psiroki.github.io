@@ -149,8 +149,12 @@ viszont megadni.</p>
 <h2>Referenciák</h2>
 <p>Mutatók mellett referenciákat is használhatunk. A háttérben ezek is
 mutatók, de nem tudjuk a mutató értékét megváltoztatni, csak azt az értéket,
-amire mutat. Ha a referenciát const kulcsszóval deklaráljuk, a fordító képes
-automatikusan ideiglenes változót létrehozni, ha kell (lásd a példát).</p>
+amire mutat.</p><p>Ha a referenciát const kulcsszóval deklaráljuk, a fordító
+képes automatikusan ideiglenes változót létrehozni, ha kell (lásd a példát).
+Ha azonban a visszatérési érték referencia, akkor a biztonságos működéshez
+csak olyan referenciát adhatunk vissza, ami nincs a függvény élettartamához
+kötve. Ha mégis megtesszük, a program még le is fordulhat, de nem várt
+eredményeket produkálhat.</p>
 <pre class="sh_cpp" data-source="new/ref.cc"></pre>
 <pre class="console" data-source="new/ref.txt"></pre>
 <h2><code class="sh_cpp">inline</code> függvények</h2>
