@@ -174,11 +174,12 @@ int a = 6;
 int b = 5;
 int val = MAX(++a, b);
 // a es val erteke mar 8</pre>
-<p>Ezen kívül nincsenek típusdeklarációk, nem lehet használni a
-túlterhelést, az alapértelmezett értékeket, és egyebeket, amikről eddig nem
-volt szó. De szeretnénk, ha nem hajtana végre külön függvényhívást, ha a
-fordító is úgy gondolja, hogy ez kézenfekvő.</p>
-<pre class="sh_cpp">int max(int a, int b)
+<p>Ezen kívül ha makrókat használunk, nincsenek típusdeklarációk,
+nem lehet használni a túlterhelést, az alapértelmezett értékeket,
+és egyebeket, amikről eddig nem volt szó. De szeretnénk, ha nem
+hajtana végre külön függvényhívást, ha a fordító is úgy gondolja,
+hogy ez kézenfekvő.</p>
+<pre class="sh_cpp">inline int max(int a, int b)
 {
     return a > b ? a : b;
 }
