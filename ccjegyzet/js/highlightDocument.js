@@ -2,6 +2,7 @@ $(function() {
 	var HIGHLIGHTED = /^sh_.*|console$/;
 	var requestsStarted = 0;
 	var checkRequests = function() { };
+	var storage = window.localStorage || { };
 	$("pre, code").each(function() {
 		var pre = this;
 		var classes = this.className.split(/\s+/);
@@ -38,10 +39,13 @@ $(function() {
 		if(ref)
 		{
 			++requestsStarted;
+			// add precached version
+			if(ref in storage)
+				pre.textContent = storage[ref];
 			$.ajax({
 				url: ref,
 				success: function(content) {
-					pre.textContent = content.replace(/^\t+/gm, function(r) {
+					storage[ref] = pre.textContent = content.replace(/^\t+/gm, function(r) {
 						var parts = [];
 						for(var i=0; i<r.length; ++i)
 							parts[i] = "    ";
