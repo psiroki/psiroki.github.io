@@ -188,6 +188,15 @@ int a = 6;
 int b = 5;
 int val = max(++a, b);
 // a es val erteke 7</pre>
+<p>A fordító nem veszi figyelembe az <code class="sh_cpp">inline</code>
+kulcsszót, ha</p>
+<ul>
+<li>a függvénynek címét vesszük, és azzal hívjuk meg (elvileg közvetlen
+meghívásnál még mindig befűzheti a hívás helyett)</li>
+<li>a függvény rekurzív</li>
+<li>a függvény túl bonyolult vagy nagy</li>
+<li>fordító hóbortból</li>
+</ul>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
