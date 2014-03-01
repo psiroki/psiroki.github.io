@@ -198,6 +198,20 @@ meghívásnál még mindig befűzheti a hívás helyett)</li>
 <li>a függvény túl bonyolult vagy nagy</li>
 <li>fordító hóbortból</li>
 </ul>
+<h2>Implicit <code class="sh_cpp">typedef</code> struktúrákra</h2>
+<p>A struktúrákra nem kell ezentúl <code class="sh_cpp">struct
+StrukturaNev</code> formában hivatkozni, simán <code
+class="sh_cpp">StrukturaNev</code> is megteszi.</p>
+<pre class="sh_cpp">struct Rect {
+    int x, y;
+    int width, height;
+};
+
+// OK
+struct Rect rect1;
+
+// C++-ban mar ez is OK
+Rect rect2;</pre>
 </section>
 <section id="oo">
 <h1>Objektum-orientált fejlesztés</h1>
@@ -231,7 +245,26 @@ osztályok ugyanúgy működhetnek, mint a beépített típusok. Vagyis a
 <code>Complex</code> osztály ugyanúgy működhet, mint a <code
 class="sh_cpp">float</code> vagy a <code>double</code>.</dd>
 </dl>
-<p></p>
+<h2>Osztályok a C++-ban</h2>
+<pre class="sh_cpp" data-source="oo/point.h"></pre>
+<p>A <code class="sh_cpp">class</code> abban különbözik a <code
+class="sh_cpp">struct</code>-tól, hogy az alapértelmezett láthatóság <code
+class="sh_cpp">private</code>. Háromféle láthatósági szint létezik:</p>
+<ul>
+<li><code class="sh_cpp">private:</code> csak az osztály látja</li>
+<li><code class="sh_cpp">protected:</code> a bővíett osztályok (gyermekosztályok) is látják</li>
+<li><code class="sh_cpp">public:</code> mindenki látja</li>
+</ul>
+<pre class="sh_cpp" data-source="oo/point.cc"></pre>
+<pre class="sh_cpp" data-source="oo/first.cc"></pre>
+<pre class="console" data-source="oo/first.txt"></pre>
+<p>Nagyon fontos, hogy a konstruktorokat nem hívjuk meg sehol. A fordító nem
+fog szólni miatta, de ettől helytelen gyakorlat. Inkább hozzunk létre egy
+függvényt, amit a konstruktor és a konstruktort hívó függvény meghív.</p>
+<p>A <code>Point</code> osztálynak nincs paraméter nélküli, azaz
+alapértelmezett konstruktora. Ezért az alábbi nem fordul:</p>
+<pre class="sh_cpp" data-source="oo/nodefault.cc"></pre>
+<pre class="console" data-source="oo/nodefault.txt"></pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
