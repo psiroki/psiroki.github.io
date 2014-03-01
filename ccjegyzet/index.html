@@ -11,6 +11,7 @@
 <ol>
 <li><a href="#compiling">Fordítás</a></li>
 <li><a href="#newLanguageElements">Új nyelvi elemek</a></li>
+<li><a href="#oo">Objektum-orientált fejlesztés</a></li>
 </ol>
 <article>
 <section id="compiling">
@@ -197,6 +198,40 @@ meghívásnál még mindig befűzheti a hívás helyett)</li>
 <li>a függvény túl bonyolult vagy nagy</li>
 <li>fordító hóbortból</li>
 </ul>
+</section>
+<section id="oo">
+<h1>Objektum-orientált fejlesztés</h1>
+<p>Az OOP lényege, hogy objektumokkal dolgozunk. Objektum lehet pl. egy
+komplex szám, egy dinamikus tömb vagy egy gomb a képernyőn. Az objektumokon
+műveleteket lehet végezni. Az objektumok négy fontos elvet követnek:</p>
+<dl><dt>Egységbezárás (encapsulation)</dt><dd>Az objektum és a műveletei
+olyan formában jelennek meg a nyelvben, hogy szintaktikailag egységet
+alkotnak. Ez a gyakorlatban azt jelenti, hogy az osztályoknak (és a
+struktúráknak) tagfüggvényei lehetnek, amik megvalósítják a műveleteket.</dd>
+<dt>Adatrejtés (information hiding)</dt><dd>Az objektum belső állapota nem
+érhető el közvetlenül. Pl. a dinamikus tömb hosszához nem férhet hozzá
+mezőnhivatkozáson keresztül, csak művelettel kérheti le és állíthatja, így a
+dinamikus tömb megvalósíthatja az automatikus újraallokálást.</dd>
+<dt>Öröklés (inheritance)</dt><dd>Az objektumok osztálya van, az osztályok
+pedig más osztályokat bővíthetnek (&bdquo;örökölhetnek&rdquo; &ndash; nem
+szeretem ezt a szóhasználatot, helyette rendre a &bdquo;bővített&rdquo; szót
+fogom használni). Pl. a <code>Button</code> és a <code>Checkbox</code> a
+<code>Widget</code> osztályt bővíti, mert a <code>Widget</code> egy általános
+vezérlő implementáció (pl. alapszinten kezeli az egérműveleteket), a
+kirajzolásra nem tud implementációt adni, azokat a <code>Button</code>
+és a <code>Checkbox</code> osztályban kell megírni.</dd>
+<dt>Behelyettesíthetőség</dt><dd>Az osztályok bővítései behelyettesíthetővé
+válnak oda, ahol a bővített osztályba (&bdquo;szülőosztályba&rdquo;) tartozó
+objektum szerepelhet. Pl. a <code>Button</code> osztály bővíti a
+<code>Widget</code> osztályt, ezért az ablak <code class="sh_cpp">void
+addWidget(Widget &amp;widget)</code> műveletéhez
+paraméternek megadható.</dd>
+<dt>Típustámogatás (extra, csak C++-ra és egy pár más nyelvre igaz)</dt><dd>Az
+osztályok ugyanúgy működhetnek, mint a beépített típusok. Vagyis a
+<code>Complex</code> osztály ugyanúgy működhet, mint a <code
+class="sh_cpp">float</code> vagy a <code>double</code>.</dd>
+</dl>
+<p></p>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
