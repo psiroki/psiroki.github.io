@@ -1,0 +1,20 @@
+$ clang -c nodefault.cc
+nodefault.cc:7:8: error: no matching constructor for initialization of 'Point'
+        Point p1;
+              ^
+./point.h:11:2: note: candidate constructor not viable: requires 2 arguments, but 0 were provided
+        Point(int initX, int initY);
+        ^
+./point.h:6:7: note: candidate constructor (the implicit copy constructor) not viable: requires 1 argument, but 0 were provided
+class Point
+      ^
+nodefault.cc:8:13: error: no matching constructor for initialization of 'Point'
+        Point p2 = Point();
+                   ^
+./point.h:11:2: note: candidate constructor not viable: requires 2 arguments, but 0 were provided
+        Point(int initX, int initY);
+        ^
+./point.h:6:7: note: candidate constructor (the implicit copy constructor) not viable: requires 1 argument, but 0 were provided
+class Point
+      ^
+2 errors generated.
