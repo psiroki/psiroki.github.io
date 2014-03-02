@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8"/>
+<title>Haladó C++</title>
+<link rel="stylesheet" href="css/sh_style.css"/>
+<link rel="stylesheet" href="css/notes.css"/>
+<meta name="viewport" content="width=device-width, user-scalable=no"/>
+</head>
+<body>
+<ol>
+<li><a href="#callbacksys">Szerény igényű metódus-visszahívó rendszer</a></li>
+</ol>
+<article>
+<section id="callbacksys">
+<h1>Szerény igényű metódus-visszahívó rendszer</h1>
+<p>A szösszenet feltételezi, hogy <code class="sh_cpp">sizeof(void*) ==
+sizeof(void (T::*method)(const SomeEvent &amp;event)</code>. Ennek még utána
+kell járnom, hogy igaz-e. Nem allokálgat feleslegesen, megoldja a dolgot.</p>
+<pre class="sh_cpp" data-source="methodref/methodref.cc"></pre>
+</section>
+</article>
+<script type="application/javascript" src="js/sh_cpp.js"></script>
+<script type="application/javascript" src="js/sh_main.js"></script>
+<script type="application/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="application/javascript" src="js/highlightDocument.js"></script>
+</body>
+</html>
