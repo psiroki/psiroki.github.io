@@ -1,4 +1,6 @@
+#include <stdio.h>
 #include "point.h"
+
 char* repeat(char c, int count)
 {
 	// figyeljuk meg, hogy a tomb meretenek nem csak konstanst, hanem
