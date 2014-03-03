@@ -14,11 +14,10 @@
 <article>
 <section id="callbacksys">
 <h1>Szerény igényű metódus-visszahívó rendszer</h1>
-<p>A szösszenet feltételezi, hogy <code class="sh_cpp">sizeof(void*) ==
-sizeof(void (T::*method)(const SomeEvent &amp;event))</code>. Ennek még utána
-kell járnom, hogy igaz-e. Nem allokálgat feleslegesen, megoldja a dolgot.</p>
-<pre class="sh_cpp" data-source="methodref/methodref.cc"></pre>
-<p>Általánosítva:</p>
+<p>A szösszenet feltételezi, hogy <code class="sh_cpp">sizeof(void*)*8 >=
+sizeof(void (T::*method)(const SomeEvent &amp;event))</code>. Ez értelmes
+fordítónál igaz a legelvetemültebb osztályokra is.</p>
+<p>Általános header:</p>
 <pre class="sh_cpp" data-source="methodref/event.h"></pre>
 <p>A példa, ami az általánosított headert használja:</p>
 <pre class="sh_cpp" data-source="methodref/testevent.cc"></pre>
