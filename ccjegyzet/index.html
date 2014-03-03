@@ -229,17 +229,20 @@ dinamikus tömb megvalósíthatja az automatikus újraallokálást.</dd>
 <dt>Öröklés (inheritance)</dt><dd>Az objektumok osztálya van, az osztályok
 pedig más osztályokat bővíthetnek (&bdquo;örökölhetnek&rdquo; &ndash; nem
 szeretem ezt a szóhasználatot, helyette rendre a &bdquo;bővített&rdquo; szót
-fogom használni). Pl. a <code>Button</code> és a <code>Checkbox</code> a
-<code>Widget</code> osztályt bővíti, mert a <code>Widget</code> egy általános
-vezérlő implementáció (pl. alapszinten kezeli az egérműveleteket), a
-kirajzolásra nem tud implementációt adni, azokat a <code>Button</code>
-és a <code>Checkbox</code> osztályban kell megírni.</dd>
+fogom használni). Pl. a <code class="sh_cpp">Bicycle</code> egy bicikli adatait tárolja el (pl.
+kerékátmérő és sebességek száma). Viszont biciklitől függően lehet, hogy
+további adatokat akarunk megadni, pl. városi kerékpár (<code
+class="sh_cpp">CityBike</code>) esetén a kosár
+űrtartalmát. Nem kell újra megírnunk azt a függvényt, ami a kerék
+fordulatszámából (a kerékátmérő ismeretében) a bicikli sebességét
+kiszámolja, hiszen az ugyanaz a városi kerékpárra, mint bármely más
+kerékpárra.</dd>
 <dt>Behelyettesíthetőség</dt><dd>Az osztályok bővítései behelyettesíthetővé
 válnak oda, ahol a bővített osztályba (&bdquo;szülőosztályba&rdquo;) tartozó
-objektum szerepelhet. Pl. a <code>Button</code> osztály bővíti a
-<code>Widget</code> osztályt, ezért az ablak <code class="sh_cpp">void
-addWidget(Widget &amp;widget)</code> műveletéhez
-paraméternek megadható.</dd>
+objektum szerepelhet. Pl. ha egy függvény <code
+class="sh_cpp">Bicycle*</code> vagy <code class="sh_cpp">Bicycle&amp;</code>
+típusú paramétert vár, ott rendre <code class="sh_cpp">CityBike*</code> és <code
+class="sh_cpp">CityBike&amp;</code> típusú érték is megadható.</dd>
 <dt>Típustámogatás (extra, csak C++-ra és egy pár más nyelvre igaz)</dt><dd>Az
 osztályok ugyanúgy működhetnek, mint a beépített típusok. Vagyis a
 <code>Complex</code> osztály ugyanúgy működhet, mint a <code
