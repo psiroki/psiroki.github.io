@@ -236,7 +236,9 @@ class="sh_cpp">CityBike</code>) esetén a kosár
 űrtartalmát. Nem kell újra megírnunk azt a függvényt, ami a kerék
 fordulatszámából (a kerékátmérő ismeretében) a bicikli sebességét
 kiszámolja, hiszen az ugyanaz a városi kerékpárra, mint bármely más
-kerékpárra.</dd>
+kerékpárra. A leszármazott osztályok új mezőkkel és függvényekkel bővíthetik
+az ősosztályt, valamint az arra megjelölt függvényeket akár le is
+cserélhetik.</dd>
 <dt>Behelyettesíthetőség</dt><dd>Az osztályok bővítései behelyettesíthetővé
 válnak oda, ahol a bővített osztályba (&bdquo;szülőosztályba&rdquo;) tartozó
 objektum szerepelhet. Pl. ha egy függvény <code
@@ -268,6 +270,14 @@ függvényt, amit a konstruktor és a konstruktort hívó függvény meghív.</p
 alapértelmezett konstruktora. Ezért az alábbi nem fordul:</p>
 <pre class="sh_cpp" data-source="oo/nodefault.cc"></pre>
 <pre class="console" data-source="oo/nodefault.txt"></pre>
+<h2>A <code class="sh_cpp">new</code> kulcsszó</h2>
+<p>A C++ a memóriaallokációt nyelvi szinten tartalmazza. Allokálni a <ocde
+class="sh_cpp">new</code> operátorral lehet, felszabadítani a <code
+class="sh_cpp">delete</code> illetve a <code class="sh_cpp">delete[]</code>
+operátorral. Az utóbbit abban az esetben kell alkalmazni, ha tömböt
+szeretnénk felszabadítani. A C-vel ellentétben a memóriaallokáció mindig
+típusos:</p>
+<pre class="sh_cpp" data-source="oo/new.cc"></pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
