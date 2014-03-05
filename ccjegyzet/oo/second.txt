@@ -1,0 +1,10 @@
+c = new Counter[4]:
+Counter::Counter() x 1
+Counter::Counter() x 2
+Counter::Counter() x 3
+Counter::Counter() x 4
+delete[] c:
+Counter::~Counter() x 4
+Counter::~Counter() x 3
+Counter::~Counter() x 2
+Counter::~Counter() x 1

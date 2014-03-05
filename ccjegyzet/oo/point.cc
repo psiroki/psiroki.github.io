@@ -5,6 +5,8 @@ Point::Point(int initX, int initY)
 {
 	x = initX;
 	y = initY;
+	// azert, hoy kovetni tudjuk, mikor hivodik meg
+	printf("Konstruktor: %d %d\n", x, y);
 }
 
 Point::~Point()

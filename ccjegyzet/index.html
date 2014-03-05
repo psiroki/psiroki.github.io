@@ -263,9 +263,12 @@ class="sh_cpp">private</code>. Háromféle láthatósági szint létezik:</p>
 <pre class="sh_cpp" data-source="oo/point.cc"></pre>
 <pre class="sh_cpp" data-source="oo/first.cc"></pre>
 <pre class="console" data-source="oo/first.txt"></pre>
+<p>Figyeljük meg, hogy a destruktorokat fordított sorrendben hívja meg,
+amikor az objektum kikerül a scope-ból.</p>
 <p>Nagyon fontos, hogy a konstruktorokat nem hívjuk meg sehol. A fordító nem
 fog szólni miatta, de ettől helytelen gyakorlat. Inkább hozzunk létre egy
 függvényt, amit a konstruktor és a konstruktort hívó függvény meghív.</p>
+<p>A destruktort sem hívjuk meg kézzel.</p>
 <p>A <code>Point</code> osztálynak nincs paraméter nélküli, azaz
 alapértelmezett konstruktora. Ezért az alábbi nem fordul:</p>
 <pre class="sh_cpp" data-source="oo/nodefault.cc"></pre>
@@ -278,6 +281,36 @@ operátorral. Az utóbbit abban az esetben kell alkalmazni, ha tömböt
 szeretnénk felszabadítani. A C-vel ellentétben a memóriaallokáció mindig
 típusos:</p>
 <pre class="sh_cpp" data-source="oo/new.cc"></pre>
+<p>Fontos megjegyezni, hogy az így létrehozott objektumok destruktorait nem a
+scope-ból való kikerülésükkor, hanem a <code class="sh_cpp">delete</code>/<code
+class="sh_cpp">delete[]</code> meghívásakor hívja meg automatikusan.</p>
+<p>A <code class="sh_cpp">malloc</code> hívással ellentétben ez meghívja a
+konstruktort is, még akkor is, ha tömböt allokálunk:</p>
+<pre class="sh_cpp" data-source="oo/counter.h"></pre>
+<pre class="sh_cpp" data-source="oo/counter.cc"></pre>
+<pre class="sh_cpp" data-source="oo/second.cc"></pre>
+<p>Jól látható, hogy a tömböt visszafelé szabadítja fel:</p>
+<pre class="console" data-source="oo/second.txt"></pre>
+<h2>A másoló konstruktor</h2>
+<p>A Point osztályunknak van egy rejtett konstruktora. A tagfüggvény
+<em>szignatúrája</em> valahogy így néz ki:</p>
+<pre class="sh_cpp">Point::Point(const Point &amp;point);</pre>
+<p>Ezt a fordító automatikusan generálta: egyszerűen minden mezőt lemásol.</p>
+<pre class="sh_cpp" data-source="oo/third.cc"></pre>
+<p>A változódeklarációnál leírt <code class="sh_cpp">=</code> nem ugyanaz,
+mint az <code class="sh_cpp">=</code> művelet.</p>
+<p>A másoló konstruktort testre is szabhatjuk, és ez néha szükséges is. Az
+alábbi <code class="sh_cpp">StringBuffer</code> osztály egy karaktertömböt
+allokál. Ha nem bíráljuk felül a másoló konstruktort, akkor egy az egyben
+átveszi a mutatót a másik objektumból, és amelyiknek a destruktorát
+másodjára hívja meg, az már felszabadított területre próbálja meghívni a
+<code class="sh_cpp">delete</code>-et.</p>
+<pre class="sh_cpp" data-source="oo/stringbuffer.h"></pre>
+<pre class="sh_cpp" data-source="oo/stringbuffer.cc"></pre>
+<p>A <code class="sh_cpp">this</code> mindig az aktuális objektumra mutat.
+Akkor használjuk, ha az aktuális objektumunkra kell egy mutató (meglepő
+módon), vagy egy olyan mezőt akarunk elérni, aminek a nevét elfedi egy
+lokális változó. Vagy azért, mert ilyen hülye szokásunk van.</p>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>

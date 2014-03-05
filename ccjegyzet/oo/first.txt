@@ -1,5 +1,9 @@
+Konstruktor: 1 2
+Konstruktor: 4 6
 1 2
 4 6
+Konstruktor: 5 6
+Konstruktor: 12 14
 1..
 Destruktor: 12 14
 Destruktor: 5 6
