@@ -12,6 +12,8 @@
 <li><a href="#compiling">Fordítás</a></li>
 <li><a href="#newLanguageElements">Új nyelvi elemek</a></li>
 <li><a href="#oo">Objektum-orientált fejlesztés</a></li>
+<li><a href="#oocc">Osztályok C++-ban</a></li>
+<li><a href="#staticAndNamespaces">Statikus deklarációk és névterek</a></li>
 </ol>
 <article>
 <section id="compiling">
@@ -73,8 +75,8 @@ megvalósítani</a>. A vizsgán ne használd.</p>
 <p>Minden olyan függvényt, amit nem használunk modulon kívüli használatra
 érdemes úgy deklarálnunk, hogy azt más modulok még véletlenül se érhessék
 el, hogy egy nagyobb program esetén ne érjenek kellemetlen meglepetések.
-C-ben ezt a static kulcsszó használatával lehet elérni, C++-ban lehetőség
-van static kulcsszót használni vagy névtelen névteret létrehozni (a
+C-ben ezt a <code class="sh_cpp">static</code> kulcsszó használatával lehet elérni, C++-ban lehetőség
+van <code class="sh_cpp">static</code> kulcsszót használni vagy névtelen névteret létrehozni (a
 névterekről később).</p>
 <pre class="sh_cpp" data-source="refer3/util.cc"></pre>
 <pre class="sh_cpp" data-source="refer3/refer3.cc"></pre>
@@ -250,7 +252,9 @@ osztályok ugyanúgy működhetnek, mint a beépített típusok. Vagyis a
 <code>Complex</code> osztály ugyanúgy működhet, mint a <code
 class="sh_cpp">float</code> vagy a <code>double</code>.</dd>
 </dl>
-<h2>Osztályok a C++-ban</h2>
+</section>
+<section id="oocc">
+<h1>Osztályok C++-ban</h1>
 <pre class="sh_cpp" data-source="oo/point.h"></pre>
 <p>A <code class="sh_cpp">class</code> abban különbözik a <code
 class="sh_cpp">struct</code>-tól, hogy az alapértelmezett láthatóság <code
@@ -273,7 +277,8 @@ függvényt, amit a konstruktor és a konstruktort hívó függvény meghív.</p
 alapértelmezett konstruktora. Ezért az alábbi nem fordul:</p>
 <pre class="sh_cpp" data-source="oo/nodefault.cc"></pre>
 <pre class="console" data-source="oo/nodefault.txt"></pre>
-<h2>A <code class="sh_cpp">new</code> kulcsszó</h2>
+<h2>A <code class="sh_cpp">new</code> és a <code
+class="sh_cpp">delete</code> kulcsszó</h2>
 <p>A C++ a memóriaallokációt nyelvi szinten tartalmazza. Allokálni a <ocde
 class="sh_cpp">new</code> operátorral lehet, felszabadítani a <code
 class="sh_cpp">delete</code> illetve a <code class="sh_cpp">delete[]</code>
@@ -311,6 +316,70 @@ másodjára hívja meg, az már felszabadított területre próbálja meghívni 
 Akkor használjuk, ha az aktuális objektumunkra kell egy mutató (meglepő
 módon), vagy egy olyan mezőt akarunk elérni, aminek a nevét elfedi egy
 lokális változó. Vagy azért, mert ilyen hülye szokásunk van.</p>
+</section>
+<section id="staticAndNamespaces">
+<h1>Statikus deklarációk és névterek</h1>
+<h2>A <code class="sh_cpp">static</code> kulcsszó függvényekben</h2>
+<p>A <code class="sh_cpp">static</code> kulcsszó C-ben és C++-ban egyaránt
+rendelkezésre áll függvényeken belül is:
+</p>
+<pre class="sh_cpp">void foo()
+{
+    static int count = 0;
+    printf("%d\n", ++count);
+}</pre>
+<p>Az ilyen statikus változók inicializálója csak egyszer hívódik meg, és
+hívásról hívásra megőrzi az értékét, pont mint egy globális változó. A
+globális változóval ellentétben viszont nem érhető el, csak a függvényen
+belülről.</p>
+<h2>A <code class="sh_cpp">static</code> kulcsszó osztályokban</h2>
+<p>Az osztályhoz kötött statikus mezők és függvények szintén globális
+változóként működnek, azaz nem kötöttek objektum példányhoz, a láthatóságuk
+pedig a <code class="sh_cpp">public</code>/<code class="sh_cpp">protected</code>/<code
+class="sh_cpp">private</code> elérési sémákkal szabályozhatók.</p>
+<pre class="sh_cpp" data-source="vis/stat.cc"></pre>
+<pre class="console" data-source="vis/stat.txt"></pre>
+<p>Figyeljük meg, hogy a statikus mező deklaráció egy <code
+class="sh_cpp">extern</code> változódeklarációval egyenértékű, vagyis a változót
+még külön egyszer deklarálni kell, ahol egyébként a kezdőérték is megadható.
+Megosztott komponenseknél ezt az osztály implementációját tartalmazó forrásba célszerű
+tenni.</p>
+<h2>A <code class="sh_cpp">friend</code> kulcsszó</h2>
+<p>A <code class="sh_cpp">friend</code> kulcsszóval hozzáférést adhatunk az
+osztály <code class="sh_cpp">protected</code> és <code
+class="sh_cpp">private</code> mezőihez más függvények és osztályok számára.</p>
+<pre class="console">TODO (álmos vagyok :D)</pre>
+<h2>Névterek</h2>
+<p>Más nyelvekben, ahol nincs lehetőség globális változókat vagy
+függvényeket deklarálni, előfordul, hogy az összetartozó konstansokat,
+függvényeket vagy globális változókat egy osztályban deklarálják statikus
+elemekként. Ami szép, mert az összetartozó elemeket egybefogja, és csúnya,
+mert mindezt osztályokkal teszi. C++-ban erre nincs szükség: használhatjuk a
+<code class="sh_cpp">namespace</code> kulcsszót.</p>
+<pre class="sh_cpp" data-source="vis/ns.cc"></pre>
+<pre class="console" data-source="vis/ns.txt"></pre>
+<p>Figyeljük meg, hogy a show függvényben (illetve bármely deklarációban a
+névteren belül) a névtér saját változóit részesíti előnyben. A névtér
+nélküli globális változókat elérni a négyesponttal tudja. A négyesponttal
+kezdődő minősített neveknél a névtereket teljesen kézzel adjuk meg. Az
+alábbi példa &ndash; bár nem szép &ndash; demonstrálja, hol lehet ez
+szükséges:</p>
+<pre class="sh_cpp" data-source="vis/badns.cc"></pre>
+<pre class="console" data-source="vis/badns.txt"></pre>
+<p>C++-ban minden standard C könyvtárnak megtalálható a C++ verziója, ami
+annyiban különbözik, hogy a rendszerhívások belekerülnek a std névtérbe. A
+header nevét a &bdquo;.h&rdquo; elhagyásával és a &bdquo;c&rdquo; előtag
+hozzáadásával kapjuk meg.</p>
+<p>Globális statikus változók és függvények (vagyis amik csak az adott
+fordítási egységben láthatók) üres névtérrel is deklarálhatók:</p>
+<pre class="sh_cpp">namespace
+{
+    // mas forditasi egysegbol nem lathato,
+    // a linkernel el fog szallni a forditas
+    int lokalis = 1;
+}</pre>
+<p>Névterekben található változók és függvények semmilyen formában nem
+oszthatóak meg C modulokkal.</p>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
