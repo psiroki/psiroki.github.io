@@ -14,6 +14,7 @@
 <li><a href="#oo">Objektum-orientált fejlesztés</a></li>
 <li><a href="#oocc">Osztályok C++-ban</a></li>
 <li><a href="#staticAndNamespaces">Statikus deklarációk és névterek</a></li>
+<li><a href="#ccio">C++ I/O</a></li>
 </ol>
 <article>
 <section id="compiling">
@@ -347,7 +348,10 @@ tenni.</p>
 <h2>A <code class="sh_cpp">friend</code> kulcsszó</h2>
 <p>A <code class="sh_cpp">friend</code> kulcsszóval hozzáférést adhatunk az
 osztály <code class="sh_cpp">protected</code> és <code
-class="sh_cpp">private</code> mezőihez más függvények és osztályok számára.</p>
+class="sh_cpp">private</code> mezőihez más függvények és osztályok számára
+(ez esetben az osztály valamennyi tagfüggvénye hozzáférhet a mezőkhöz).
+A friend deklarációt az osztályon belül bárhova írhatjuk, minden esetben
+ugyanazt jelenti.</p>
 <pre class="sh_cpp" data-source="vis/friend.cc"></pre>
 <h2>Névterek</h2>
 <p>Más nyelvekben, ahol nincs lehetőség globális változókat vagy
@@ -380,6 +384,34 @@ fordítási egységben láthatók) üres névtérrel is deklarálhatók:</p>
 }</pre>
 <p>Névterekben található változók és függvények semmilyen formában nem
 oszthatóak meg C modulokkal.</p>
+</section>
+<section id="ccio">
+<h1>C++ I/O</h1>
+<h2>Folyamok (streamek)</h2>
+<p>Ahogyan a C-s szöveges I/O legtöbbet használt része a formátum stirng,
+úgy a C++ I/O alapja a stream. A <code class="sh_cpp">stdout</code> C++-ban a <code
+class="sh_cpp">std::cout</code>, a <code class="sh_cpp">stderr</code> pedig a
+<code class="sh_cpp">std::cerr</code>.</p>
+<p>Az elmaradhatatlan &bdquo;Hello World!&rdquo; alkalmazás:</p>
+<pre class="sh_cpp" data-source="io/hello.cc"></pre>
+<p>A <code class="sh_cpp">std::endl</code> azon kívül, hogy kiír egy
+soremelés karaktert, üríti a buffert is: a karaktereket ugyanis a rendszer nem
+egyenként szokta a rendszer a képernyőre írni, hanem kötegelve (ez C-ben sem
+volt másképp, legfeljebb nem tudtatok róla :D).</p>
+<p>A <code class="sh_cpp">std::cout</code>-hoz hasonlóan van <code
+class="sh_cpp">std::cin</code> is:</p>
+<pre class="sh_cpp" data-source="io/circumference.cc"></pre>
+<p>A program beolvassa a radius változóba a <code>stdin</code>ről egy tört
+értéket, majd kiszámolja a kör kerületét és kiírja.</p>
+<p>Figyeljük meg, hogy a shift operátor nyilai a kimenetnél a kimenet felé
+mutatnak, a bemenetnél pedig onnan indulnak ki (hogy miért tud a shift
+operátor ilyen különösen viselkedni, arról később lesz szó).</p>
+<h2>Írás állományokba</h2>
+<p>Az <code class="sh_cpp">ifstream</code> és az <code
+class="sh_cpp">ofstream</code> osztályokkal történik. Szöveges elérés:</p>
+<pre class="sh_cpp" data-source="io/distance.cc"></pre>
+<pre class="console" data-source="io/coords.txt"></pre>
+<pre class="console" data-source="io/distances.txt"></pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
