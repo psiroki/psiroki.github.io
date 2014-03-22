@@ -1,0 +1,4 @@
+$ clang -o string -lstdc++ string.cc && echo zwordHello World! | ./string
+zz
+word
+Hello World!

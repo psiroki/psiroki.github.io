@@ -44,8 +44,10 @@ GeoPoint readGeoPoint(std::ifstream &s)
 double distanceInKm(const GeoPoint &p1, const GeoPoint &p2)
 {
 	GeoPoint dp = p2.diff(p1);
-	double a = std::sin(dp.getLatitude()*0.5) * std::sin(dp.getLatitude()/2) +
-			std::sin(dp.getLongitude()*0.5) * std::sin(dp.getLongitude()*0.5) * std::cos(p1.getLatitude()) * std::cos(p2.getLatitude()); 
+	double a =
+		std::sin(dp.getLatitude()*0.5) * std::sin(dp.getLatitude()/2) +
+			std::sin(dp.getLongitude()*0.5) * std::sin(dp.getLongitude()*0.5) *
+			std::cos(p1.getLatitude()) * std::cos(p2.getLatitude()); 
 	double c = 2 * std::atan2(std::sqrt(a), std::sqrt(1-a)); 
 	return R_EARTH * c;
 }

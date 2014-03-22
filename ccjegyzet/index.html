@@ -384,6 +384,16 @@ fordítási egységben láthatók) üres névtérrel is deklarálhatók:</p>
 }</pre>
 <p>Névterekben található változók és függvények semmilyen formában nem
 oszthatóak meg C modulokkal.</p>
+<h2>A <code class="sh_cpp">using</code> kulcsszó</h2>
+<p>A <code class="sh_cpp">using</code> kulcsszó használatával
+egyszerűsíthetjük a névterekben lévő elemek elérését. A deklaráció mindig a
+fordítási egységre vonatkozik, vagyis header esetén minden C++ forrásra
+érvényes lesz, amelyik a headert befűzi, ezért headerbe ilyet írni nem szép
+dolog. A <code class="sh_cpp">using</code> önmagában egyetlen nevet tesz
+elérhetővé a névtér megadása nélkül. A <code class="sh_cpp">using
+namespace</code> a névtér valamennyi elemét elérhetővé teszi a
+névtérmegjelölés (kvalifikáció) nélkül.</p>
+<pre class="sh_cpp" data-source="oo/using.cc"></pre>
 </section>
 <section id="ccio">
 <h1>C++ I/O</h1>
@@ -408,10 +418,16 @@ mutatnak, a bemenetnél pedig onnan indulnak ki (hogy miért tud a shift
 operátor ilyen különösen viselkedni, arról később lesz szó).</p>
 <h2>Írás állományokba</h2>
 <p>Az <code class="sh_cpp">ifstream</code> és az <code
-class="sh_cpp">ofstream</code> osztályokkal történik. Szöveges elérés:</p>
+class="sh_cpp">ofstream</code> osztályokkal történik. Szöveges formázott elérés:</p>
 <pre class="sh_cpp" data-source="io/distance.cc"></pre>
 <pre class="console" data-source="io/coords.txt"></pre>
 <pre class="console" data-source="io/distances.txt"></pre>
+<p>Egyéb elérési módok (itt most ifstream és ofstream helyett a
+szülőosztályt, az istreamet és az ostreamet használom):</p>
+<pre class="sh_cpp" data-source="io/string.cc"></pre>
+<pre class="console" data-source="io/string.txt"></pre>
+<h2>Mezők formázása</h2>
+<pre class="sh_cpp" data-source="io/format.cc"></pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
