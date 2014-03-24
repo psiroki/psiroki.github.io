@@ -15,6 +15,7 @@
 <li><a href="#oocc">Osztályok C++-ban</a></li>
 <li><a href="#staticAndNamespaces">Statikus deklarációk és névterek</a></li>
 <li><a href="#ccio">C++ I/O</a></li>
+<li><a href="#opover">Operátor túlterhelés</a></li>
 </ol>
 <article>
 <section id="compiling">
@@ -429,6 +430,59 @@ szülőosztályt, az istreamet és az ostreamet használom):</p>
 <h2>Mezők formázása</h2>
 <pre class="sh_cpp" data-source="io/format.cc"></pre>
 <pre class="console" data-source="io/format.txt"></pre>
+</section>
+<section id="opover">
+<h1>Operátor túlterhelés</h1>
+<p>Operátorokat definiálhatunk olyan típusokra, amikre egyébként nincsenek.
+Nem változtathatjuk meg az eredeti működést (vagy legalábbis nagyon nem
+javaslom), nem változtathatjuk meg a
+precedenciát, nem hozhatunk létre teljesen új operátorokat (pl. <code
+class="sh_cpp">**</code>)</p>
+<p>Az operátorok legalább egyik tagja osztály kell, hogy legyen.</p>
+<pre class="sh_cpp" data-source="opover/complex.cc"></pre>
+<pre class="console" data-source="opover/complex.txt"></pre>
+<p>Figyeljük meg, milyen sorrendben értékeli ki őket:</p>
+<pre class="sh_cpp" data-source="opover/order.cc"></pre> 
+<pre class="console" data-source="opover/order.txt"></pre> 
+<p>Kérdés még, hogy hogyan különböztetjük meg a prefix és a
+posztfix <code class="sh_cpp">++</code> operátort.</p>
+<pre class="sh_cpp">class A
+{
+    int val;
+public:
+    //
+    // ...
+    //
+    
+    // ++a
+    A&amp; operator++()
+    {
+        ++val;
+        return *this;
+    }
+    
+    // a++
+    A operator++(int)
+    {
+        // elmentjuk az eredeti erteket
+        A result(*this);
+        ++val;
+        return result;
+    }
+    
+    //
+    // ...
+    //
+};</pre>
+<p>A posztfix <code class="sh_cpp">++</code> és <code
+class="sh_cpp">--</code> operátorhoz meg kell követelnünk egy extra <code
+class="sh_cpp">int</code> paramétert, amit nem használunk fel.</p>
+<h2>Típuskonverzió, mint operátor</h2>
+<pre class="sh_cpp" data-source="opover/simplecomplex.cc"></pre>
+<pre class="console" data-source="opover/simplecomplex.txt"></pre>
+<p>Figyeljük meg, hogy a típuskonverziós operátoroknál hiányzik a
+visszatérési érték típusa, mert azt az <code class="sh_cpp">operator</code>
+kulcsszó után adjuk meg.</p>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
