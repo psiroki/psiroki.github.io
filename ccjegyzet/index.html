@@ -490,6 +490,10 @@ class="sh_cpp">double operator()()</code> szignatúrával tagfüggvényként,
 vagy <code class="sh_cpp">double operator()(Poly3 &amp;p)</code> kívülről.</p>
 <pre class="sh_cpp" data-source="opover/poly3.cc"></pre>
 <pre class="console" data-source="opover/poly3.txt"></pre>
+<p>Az következő operátorok nem terhelhetőek túl: <code class="sh_cpp">. ::
+?: sizeof</code>. Minden más igen, beleértve néhány különös megoldást is:</p>
+<pre class="sh_cpp" data-source="opover/strange.cc"></pre>
+<pre class="console" data-source="opover/strange.txt"></pre>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
