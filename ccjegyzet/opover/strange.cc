@@ -37,7 +37,8 @@ public:
 		buildPair();
 	}
 	
-	// barmilyen osztallyal vagy strukturaval visszaterhet
+	// barmilyen osztaly vagy struktura mutatoval visszaterhet
+	// de mutatonak kell lennie
 	inline const Pair* operator->() const
 	{
 		return &p;
