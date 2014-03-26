@@ -16,6 +16,7 @@
 <li><a href="#staticAndNamespaces">Statikus deklarációk és névterek</a></li>
 <li><a href="#ccio">C++ I/O</a></li>
 <li><a href="#opover">Operátor túlterhelés</a></li>
+<li><a href="#extend">Osztály bővítés C++-ban</a></li>
 </ol>
 <article>
 <section id="compiling">
@@ -494,6 +495,69 @@ vagy <code class="sh_cpp">double operator()(Poly3 &amp;p)</code> kívülről.</p
 ?: sizeof</code>. Minden más igen, beleértve néhány különös megoldást is:</p>
 <pre class="sh_cpp" data-source="opover/strange.cc"></pre>
 <pre class="console" data-source="opover/strange.txt"></pre>
+</section>
+<section id="extend">
+<h1>Osztály bővítés C++-ban</h1>
+<p>Nézzünk először egy viszonylag egyszerű példát: dátum és idő. Az idő
+napot is megjelöl, a dátum viszont csak napot:</p>
+<pre class="sh_cpp" data-source="extend/date.h"></pre>
+<p>Így lehet bővíteni. A szülőosztály lehet rejtett, ilyenkor a következőképpen
+alakul a mezőinek a láthatósága az új osztályban:</p>
+<table>
+<thead>
+<tr><th>Szülőosztály:</th><th rowspan="2"><code
+class="sh_cpp">public</code></th><th rowspan="2"><code
+class="sh_cpp">protected</code></th><th rowspan="2"><code
+class="sh_cpp">private</code></th></tr>
+<tr><th>Mező:</th></tr>
+</thead>
+<tbody>
+<tr>
+	<th><code class="sh_cpp">public</code></th>
+	<td><code class="sh_cpp">public</code></td>
+	<td><code class="sh_cpp">protected</code></td>
+	<td><code class="sh_cpp">private</code></td>
+</tr>
+<tr>
+	<th><code class="sh_cpp">protected</code></th>
+	<td><code class="sh_cpp">protected</code></td>
+	<td><code class="sh_cpp">protected</code></td>
+	<td><code class="sh_cpp">private</code></td>
+</tr>
+<tr>
+	<th><code class="sh_cpp">private</code></th>
+	<td><code class="sh_cpp">private</code></td>
+	<td><code class="sh_cpp">private</code></td>
+	<td><code class="sh_cpp">private</code></td>
+</tr>
+</tbody>
+</table>
+<p>A táblázat alapján elmondhatjuk, hogy a szülőosztály láthatósági
+megszorítása egy &bdquo;láthatósági plafont&rdquo; ad.</p>
+<p>Az új osztály a bővítendő osztály függvényei helyett újakat definiálhat,
+de ebből a szempontból meg kell különböztetnünk a virtuális és a hagyományos
+függvényeket:</p>
+<pre class="sh_cpp" data-source="extend/person.h"></pre>
+<pre class="sh_cpp" data-source="extend/person.cc"></pre>
+<pre class="sh_cpp" data-source="extend/employee.h"></pre>
+<pre class="sh_cpp" data-source="extend/employee.cc"></pre>
+<pre class="sh_cpp" data-source="extend/extend.cc"></pre>
+<pre class="console" data-source="extend/extend.txt"></pre>
+<p>A virtuális függvény azt jelenti, hogy az osztályhoz tartozni fog egy
+virtuális függvény tábla, amely az osztály virtuális függvényeinek címét
+tartalmazza. Az objektumpéldány tartalmaz egy mutatót az osztály virtuális
+függvény táblájára. Normális esetben a tagfüggvényeket úgy hívja meg, hogy
+annak a címét fordítási időben a linker írja be. Virtuális függvény esetében
+viszont az objektum egy rejtett mezőjéből kiolvassa a virtuális függvény
+tábla címét, majd a tábla megfelelő elemét, amely tartalmazni fogja a
+meghívott függvény címét.</p>
+<p>Így amikor <code class="sh_cpp">Person&amp;</code>-ként hivatkoztunk az
+<code class="sh_cpp">Employee</code> objektumra, a <code
+class="sh_cpp">print()</code> függvény meghívásánál a <code
+class="sh_cpp">Person</code> osztály <code
+class="sh_cpp">print()</code> függvényét drótotza be még a linker, viszont a <code
+class="sh_cpp">printVirtual()</code> esetén a referencia mögötti objektum
+osztályától függ, hogy melyik függvényt hívja meg.</p>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>

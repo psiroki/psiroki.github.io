@@ -71,3 +71,22 @@ article h2
 {
 	font-size: 1.17em;
 }
+
+table
+{
+    font-family: 'Helvetica Neue', sans-serif;
+    font-size: 10pt;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+
+table th, table th *
+{
+	background: powderblue;
+	vertical-align: top;
+}
+
+table td, table th
+{
+	padding: 4px 8px;
+}
