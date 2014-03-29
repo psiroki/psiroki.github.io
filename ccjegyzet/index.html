@@ -565,6 +565,23 @@ kitesszük a <code class="sh_cpp">virtual</code> kulcsszót, akár nem. A kód
 megértését segíti, ha kitesszük.</p>
 <p>Mivel a virtuális függvény alapvető tulajdonsága, hogy címe van, <code
 class="sh_cpp">inline</code> nem lehet.</p>
+<h2>Virtuális destruktor</h2>
+<p>A destruktor is lehet virtuális. Azt mondják ökölszabálynak: ha az
+osztálynak van legalább egy virtuális metódusa, akkor a destruktornak is
+virtuálisnak kell lennie. A valóság ennél árnyltabb:</p>
+<pre class="sh_cpp" data-source="extend/vd.cc"></pre>
+<pre class="console" data-source="extend/vd.txt"></pre>
+<p>Figyeljük meg, hogy az első esetet leszámítva &ndash; helyesen &ndash;
+mindkét destruktor lefutott. Az első esetben a delete művelet során azonban,
+megnézte, mivel van dolga: <code class="sh_cpp">SDA*</code>,
+<em>meghívta</em> a destruktorát, és felszabadította a területet. Az utolsó
+esetben megnézte, mivel van dolga: <code class="sh_cpp">VDA*</code>,
+<em>meghívta</em> a destruktorát, és felszabadította a területet. Volt
+azonban egy fontos különbség: az előbbi esetben kifejezetten az <code
+class="sh_cpp">SDA::~SDA()</code> destruktort hívta meg, míg az utóbbi
+esetben a meghívandó függvény címét a virtuális metódustáblából nézte ki,
+így végül a <code class="sh_cpp">VDB::~VDB()</code> függvény lefuttatására
+került sor.</p>
 <h2>Absztrakt osztályok és metódusok</h2>
 <p>A virtuális függvények lehetnek absztrakt metódusok, ami azt jelenti,
 hogy az adott osztályban nem tartozik hozzá implementáció.</p>
