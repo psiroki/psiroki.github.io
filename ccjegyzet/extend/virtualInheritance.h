@@ -1,5 +1,5 @@
-#ifndef _WRONG_HIERARCHY_H_
-#define _WRONG_HIERARCHY_H_
+#ifndef _VIRTUAL_INHERITANCE_H_
+#define _VIRTUAL_INHERITANCE_H_
 
 #include <string>
 
