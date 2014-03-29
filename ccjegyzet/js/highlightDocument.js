@@ -107,6 +107,23 @@ $(function() {
 		if(requestsStarted <= 0)
 		{
 			sh_highlightDocument();
+			if(document.querySelectorAll)
+			{
+				var nodes = document.querySelectorAll("td.sh_cpp");
+				for(var i=0; i<nodes.length; ++i)
+				{
+					var n = nodes[i];
+					n.className = n.className.replace(/\bsh_cpp\b/g, "");
+					var code = document.createElement("code");
+					code.className = "sh_cpp";
+					n.insertBefore(code, n.firstChild);
+					for(var c = code.nextSibling; c; c = code.nextSibling)
+					{
+						n.removeChild(c);
+						code.appendChild(c);
+					}
+				}
+			}
 			sh_highlightNodeList(document.getElementsByTagName("code"));
 		}
 	};

@@ -5,6 +5,11 @@
 	}
 }
 
+p, li
+{
+	text-align: justify;
+}
+
 figure
 {
     border: 1px solid #888;
@@ -116,11 +121,19 @@ table th .sh_cpp *
 .memoryLayout th
 {
 	border-bottom: 3px solid black;
+	font-style: italic;
+}
+
+.memoryLayout tbody td
+{
+	background-color: white;
+	background-image: linear-gradient(to top, whitesmoke, white, white, white);
 }
 
 .memoryLayout tbody.inherited td
 {
-	background: #eee;
+	background-color: gainsboro;
+	background-image: linear-gradient(to top, gainsboro, whitesmoke, whitesmoke);
 }
 
 .memoryLayout thead.inherited th

@@ -1,5 +1,5 @@
 #include <iostream>
-#include "wrongHierarchy.h"
+#include "virtualInheritance.h"
 
 using namespace std;
 
