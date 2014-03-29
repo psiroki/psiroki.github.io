@@ -8,6 +8,11 @@ Person::Person(const string &name, const Date &birthDate):
 {
 }
 
+void Person::setName(const string &newName)
+{
+	name = newName;
+}
+
 const string& Person::getName()
 {
 	return name;

@@ -500,7 +500,7 @@ vagy <code class="sh_cpp">double operator()(Poly3 &amp;p)</code> kívülről.</p
 <h1>Osztály bővítés C++-ban</h1>
 <p>Nézzünk először egy viszonylag egyszerű példát: dátum és idő. Az idő
 napot is megjelöl, a dátum viszont csak napot:</p>
-<pre class="sh_cpp" data-source="extend/date.h"></pre>
+<pre class="sh_cpp" data-source="extend/date.h" id="date_h"></pre>
 <p>Így lehet bővíteni. A szülőosztály lehet rejtett, ilyenkor a következőképpen
 alakul a mezőinek a láthatósága az új osztályban:</p>
 <table>
@@ -558,6 +558,67 @@ class="sh_cpp">Person</code> osztály <code
 class="sh_cpp">print()</code> függvényét drótotza be még a linker, viszont a <code
 class="sh_cpp">printVirtual()</code> esetén a referencia mögötti objektum
 osztályától függ, hogy melyik függvényt hívja meg.</p>
+<p>Ha valamelyik szülőosztályban egy függvény virtuálisként lett megjelölve, akkor
+annak minden gyermekosztálybeli megfelelője implicit módon virtuális lesz, akár
+kitesszük a <code class="sh_cpp">virtual</code> kulcsszót, akár nem. A kód
+megértését segíti, ha kitesszük.</p>
+<p>Mivel a virtuális függvény alapvető tulajdonsága, hogy címe van, <code
+class="sh_cpp">inline</code> nem lehet.</p>
+<p>A virtuális függvények lehetnek absztrakt metódusok, ami azt jelenti,
+hogy az adott osztályban nem tartozik hozzá implementáció.</p>
+<pre class="sh_cpp" data-source="extend/abstract.cc"></pre>
+<pre class="console" data-source="extend/abstract.txt"></pre>
+<p>Ha az osztálynak van absztrakt függvénye, nem példányosítható:</p>
+<pre class="console" data-source="extend/abstractInstance.txt"></pre>
+<p>A <code class="sh_cpp">Stingifiable</code> megfelelő azoknak az
+osztályoknak, amelyek értelmesen szöveggé alakíthatóak, de mi van azokkal,
+amik egész számmá is alakíthatóak? A felvázolt <code
+class="sh_cpp">Number</code> osztálynál egyértelmű, mit kell tenni, de egy
+komplex típusnál vehetnénk pl. a valós rész egészrészét. De mindkettőről
+tudjuk, hogy kiválóan átalakíthatóak szöveggé is. Itt jön be a többszörös
+öröklés:</p>
+<pre class="sh_cpp" data-source="extend/multi.cc"></pre>
+<p>A többszörös öröklés nem csak absztrakt szülőosztályokra vonatkozik.
+Nézzünk egy másik példát, ahol egy klub csoportvezetőit és csoporttagjait
+tartjuk számon. Azonban a klub vezetőjét leszámítva mindenki tagja a
+csoportvezetők csoportjának, vagyis egyszerre csoporttagok és
+csoportvezetők.</p>
+<pre class="sh_cpp" data-source="extend/wrongHierarchy.h"></pre>
+<p>Első ránézésre jónak néz ki. Próbáljuk ki:</p>
+<pre class="sh_cpp" data-source="extend/wrongHierarchy.cc"></pre>
+<pre class="console" data-source="extend/wrongHierarchy.txt"></pre>
+<p>Ok, ez így nem lesz jó. Nézzük meg, hogyan néznek ki az egyes osztályok
+példányai a memóriában, de először csak egy egyszerű példára, a már
+felvázolt <a href="#date_h"><code class="sh_cpp">Date</code></a>-re:</p>
+<div class="memoryLayoutSet">
+	<div class="memoryLayout">
+		<table>
+		<thead><tr><th>Date</th></tr></thead>
+		<tbody>
+		<tr><td>int year;</td></tr>
+		<tr><td>int month;</td></tr>
+		<tr><td>int day;</td></tr>
+		</tbody>
+		</table>
+	</div>
+	<div class="memoryLayout">
+		<table>
+		<thead><tr><th>DateTime</th></tr></thead>
+		<thead class="inherited"><tr><th>Date</th></tr></thead>
+		<tbody class="inherited">
+		<tr><td>int year;</td></tr>
+		<tr><td>int month;</td></tr>
+		<tr><td>int day;</td></tr>
+		</tbody>
+		<tbody>
+		<tr><td>int hour;</td></tr>
+		<tr><td>int minute;</td></tr>
+		<tr><td>int second;</td></tr>
+		</tbody>
+		</table>
+	</div>
+</div>
+
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>

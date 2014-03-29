@@ -1,0 +1,18 @@
+$ clang -lstdc++ wrongHierarchy.cc
+wrongHierarchy.cc:24:14: error: non-static member 'getName' found in multiple base-class subobjects of type 'Member':
+    class MiddleTeamLeader -> class TeamLeader -> class Member
+    class MiddleTeamLeader -> class TeamMember -> class Member
+        cout << mtl.getName() << endl;
+                    ^
+wrongHierarchy.cc:11:21: note: member found by ambiguous name lookup
+std::string Member::getName() const
+                    ^
+wrongHierarchy.cc:28:14: error: non-static member 'getName' found in multiple base-class subobjects of type 'Member':
+    class MiddleTeamLeader -> class TeamLeader -> class Member
+    class MiddleTeamLeader -> class TeamMember -> class Member
+        cout << mtl.getName() << endl;
+                    ^
+wrongHierarchy.cc:11:21: note: member found by ambiguous name lookup
+std::string Member::getName() const
+                    ^
+2 errors generated.

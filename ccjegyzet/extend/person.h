@@ -11,6 +11,8 @@ class Person
 public:
 	Person(const std::string &name, const Date &birthDate);
 	
+	void setName(const std::string &name);
+	
 	const std::string& getName();
 	const Date& getBirthDate();
 	

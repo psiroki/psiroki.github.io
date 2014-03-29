@@ -3,6 +3,34 @@ $(function() {
 	var requestsStarted = 0;
 	var checkRequests = function() { };
 	var storage = window.localStorage || { };
+	
+	function ContentProvider()
+	{
+		this._listeners = [ ];
+		this._content = null;
+	}
+	
+	ContentProvider.prototype.addListener = function(f) {
+		if(this._content !== null)
+			f.call(this, this._content);
+		else
+			this._listeners.push(f);
+	};
+	
+	ContentProvider.prototype.setContent = function(content) {
+		this._content = content;
+		var listeners = this._listeners;
+		for(var i=0; i<listeners.length; ++i)
+		{
+			var fun = listeners[i];
+			fun.call(this, content);
+		}
+		
+		this._listeners = [ ];
+	};
+	
+	var contents = { };
+	
 	$("pre, code").each(function() {
 		var pre = this;
 		var classes = this.className.split(/\s+/);
@@ -38,25 +66,40 @@ $(function() {
 		
 		if(ref)
 		{
-			++requestsStarted;
 			// add precached version
 			if(ref in storage)
 				pre.textContent = storage[ref];
-			$.ajax({
-				url: ref,
-				success: function(content) {
-					storage[ref] = pre.textContent = content.replace(/^\t+/gm, function(r) {
-						var parts = [];
-						for(var i=0; i<r.length; ++i)
-							parts[i] = "    ";
-						return parts.join("");
-					});
-				},
-				complete: function() {
-					--requestsStarted;
-					checkRequests();
-				}
-			});
+			if(ref in contents)
+			{
+				contents[ref].addListener(function(content) {
+					console.log("Provided content for ref:", ref);
+					pre.textContent = content;
+				});
+			} else
+			{
+				contents[ref] = new ContentProvider();
+				++requestsStarted;
+				$.ajax({
+					url: ref,
+					success: function(content) {
+						content = content.replace(/^\t+/gm, function(r) {
+							var parts = [];
+							for(var i=0; i<r.length; ++i)
+								parts[i] = "    ";
+							return parts.join("");
+						});
+						
+						storage[ref] = pre.textContent = content;
+						
+						if(ref in contents)
+							contents[ref].setContent(content);
+					},
+					complete: function() {
+						--requestsStarted;
+						checkRequests();
+					}
+				});
+			}
 		}
 	});
 	
