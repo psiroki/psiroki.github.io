@@ -1,0 +1,5 @@
+$ clang -lstdc++ castingerror.cc
+castingerror.cc:20:9: error: static_cast from 'A *' to 'B *' is not allowed
+        B *b = static_cast<B*>(&a);
+               ^~~~~~~~~~~~~~~~~~~
+1 error generated.

@@ -1,0 +1,29 @@
+Constructor calls:
+	Number(int value = 1)
+	Number(int value = 2)
+	Number(const char* value = "4")
+	Number(const char* value = "5")
+	Number(5)::operator int() const
+print(5)
+	Number(const char* value = "5")
+	Number(5)::operator int() const
+printRef(5)
+	Number(int value = 6)
+	Number(6)::operator int() const
+print(6)
+	Number(int value = 6)
+	Number(6)::operator int() const
+print(6)
+	Number(int value = 7)
+	Number(7)::operator int() const
+printRef(7)
+	Number(int value = 7)
+	Number(7)::operator int() const
+printRef(7)
+Assignment operator calls:
+	int Number(4)::operator=(int other = 8)
+	int Number(2)::operator=(int other = 8)
+	int Number(1)::operator=(int other = 8)
+Cast operator call:
+	Number(8)::operator int() const
+8

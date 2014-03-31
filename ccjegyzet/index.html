@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="hu">
 <head>
 <meta charset="UTF-8"/>
 <title>C++ jegyzet</title>
@@ -17,6 +17,7 @@
 <li><a href="#ccio">C++ I/O</a></li>
 <li><a href="#opover">Operátor túlterhelés</a></li>
 <li><a href="#extend">Osztály bővítés C++-ban</a></li>
+<li><a href="#trycatch">Kivételkezelés</a></li>
 </ol>
 <article>
 <section id="compiling">
@@ -513,22 +514,22 @@ class="sh_cpp">private</code></th></tr>
 </thead>
 <tbody>
 <tr>
-	<th><code class="sh_cpp">public</code></th>
-	<td><code class="sh_cpp">public</code></td>
-	<td><code class="sh_cpp">protected</code></td>
-	<td><code class="sh_cpp">private</code></td>
+    <th><code class="sh_cpp">public</code></th>
+    <td><code class="sh_cpp">public</code></td>
+    <td><code class="sh_cpp">protected</code></td>
+    <td><code class="sh_cpp">private</code></td>
 </tr>
 <tr>
-	<th><code class="sh_cpp">protected</code></th>
-	<td><code class="sh_cpp">protected</code></td>
-	<td><code class="sh_cpp">protected</code></td>
-	<td><code class="sh_cpp">private</code></td>
+    <th><code class="sh_cpp">protected</code></th>
+    <td><code class="sh_cpp">protected</code></td>
+    <td><code class="sh_cpp">protected</code></td>
+    <td><code class="sh_cpp">private</code></td>
 </tr>
 <tr>
-	<th><code class="sh_cpp">private</code></th>
-	<td><em>nem érhető el</em></td>
-	<td><em>nem érhető el</em></td>
-	<td><em>nem érhető el</em></td>
+    <th><code class="sh_cpp">private</code></th>
+    <td><em>nem érhető el</em></td>
+    <td><em>nem érhető el</em></td>
+    <td><em>nem érhető el</em></td>
 </tr>
 </tbody>
 </table>
@@ -613,31 +614,31 @@ csoportvezetők.</p>
 példányai a memóriában, de először csak egy egyszerű példára, a már
 felvázolt <a href="#date_h"><code class="sh_cpp">Date</code></a>-re:</p>
 <div class="memoryLayoutSet">
-	<div class="memoryLayout">
-		<table>
-		<thead><tr><th>Date</th></tr></thead>
-		<tbody>
-		<tr><td class="sh_cpp">int year;</td></tr>
-		<tr><td class="sh_cpp">int month;</td></tr>
-		<tr><td class="sh_cpp">int day;</td></tr>
-		</tbody>
-		</table>
-	</div>
-	<div class="memoryLayout">
-		<table>
-		<thead><tr><th>DateTime</th></tr></thead>
-		<tbody class="inherited">
-		<tr><td class="sh_cpp">int year;</td></tr>
-		<tr><td class="sh_cpp">int month;</td></tr>
-		<tr><td class="sh_cpp">int day;</td></tr>
-		</tbody>
-		<tbody>
-		<tr><td class="sh_cpp">int hour;</td></tr>
-		<tr><td class="sh_cpp">int minute;</td></tr>
-		<tr><td class="sh_cpp">int second;</td></tr>
-		</tbody>
-		</table>
-	</div>
+    <div class="memoryLayout">
+        <table>
+        <thead><tr><th>Date</th></tr></thead>
+        <tbody>
+        <tr><td class="sh_cpp">int year;</td></tr>
+        <tr><td class="sh_cpp">int month;</td></tr>
+        <tr><td class="sh_cpp">int day;</td></tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="memoryLayout">
+        <table>
+        <thead><tr><th>DateTime</th></tr></thead>
+        <tbody class="inherited">
+        <tr><td class="sh_cpp">int year;</td></tr>
+        <tr><td class="sh_cpp">int month;</td></tr>
+        <tr><td class="sh_cpp">int day;</td></tr>
+        </tbody>
+        <tbody>
+        <tr><td class="sh_cpp">int hour;</td></tr>
+        <tr><td class="sh_cpp">int minute;</td></tr>
+        <tr><td class="sh_cpp">int second;</td></tr>
+        </tbody>
+        </table>
+    </div>
 </div>
 <p>Ha egy <code class="sh_cpp">DateTime</code> típusú objektumra úgy
 tekintünk, mint egy <code class="sh_cpp">Date</code> típusúra, akkor
@@ -647,31 +648,31 @@ class="sh_cpp">int</code>-ként, egymás után.</p>
 class="sh_cpp">Person</code></a> és az <a href="#employee_h"><code
 class="sh_cpp">Employee</code></a> osztályokra:</p>
 <div class="memoryLayoutSet">
-	<div class="memoryLayout">
-		<table>
-		<thead><tr><th>Person</th></tr></thead>
-		<tbody>
-		<tr><td class="sh_cpp">void *vtable;</td></tr>
-		<tr><td class="sh_cpp">std::string name;</td></tr>
-		<tr><td class="sh_cpp">Date birthDate;</td></tr>
-		</tbody>
-		</table>
-	</div>
-	<div class="memoryLayout">
-		<table>
-		<thead><tr><th>Employee</th></tr></thead>
-		<tbody>
-		<tr><td class="sh_cpp">void *vtable;</td></tr>
-		</tbody>
-		<tbody class="inherited">
-		<tr><td class="sh_cpp">std::string name;</td></tr>
-		<tr><td class="sh_cpp">Date birthDate;</td></tr>
-		</tbody>
-		<tbody>
-		<tr><td class="sh_cpp">Date hiringDate;</td></tr>
-		</tbody>
-		</table>
-	</div>
+    <div class="memoryLayout">
+        <table>
+        <thead><tr><th>Person</th></tr></thead>
+        <tbody>
+        <tr><td class="sh_cpp">void *vtable;</td></tr>
+        <tr><td class="sh_cpp">std::string name;</td></tr>
+        <tr><td class="sh_cpp">Date birthDate;</td></tr>
+        </tbody>
+        </table>
+    </div>
+    <div class="memoryLayout">
+        <table>
+        <thead><tr><th>Employee</th></tr></thead>
+        <tbody>
+        <tr><td class="sh_cpp">void *vtable;</td></tr>
+        </tbody>
+        <tbody class="inherited">
+        <tr><td class="sh_cpp">std::string name;</td></tr>
+        <tr><td class="sh_cpp">Date birthDate;</td></tr>
+        </tbody>
+        <tbody>
+        <tr><td class="sh_cpp">Date hiringDate;</td></tr>
+        </tbody>
+        </table>
+    </div>
 </div>
 <p>A <code class="sh_cpp">vtable</code> természetesen a virtuális
 metódustábla mutató, minden osztály példányaiban az osztály (nem az
@@ -698,6 +699,121 @@ valamit nagyon rosszul modelleztél le.</p>
 mindig egyértelmű. Az első öröklést (a téglalap egy síkidom, van pl. területe),
 a második objektum kompozíciót jelent (pl. a téglalap egy pontból és egy
 méretből áll, a téglalap viszont nem pont és nem méret).</p>
+</section>
+<section id="conversion">
+<h1>Típuskonverziók</h1>
+<h2>Konverziók megvalósítása</h2>
+<p>Mindenről volt már szó, összefoglalva:</p>
+<pre class="sh_cpp" data-source="conversion/conversion.cc"></pre>
+<pre class="console" data-source="conversion/conversion.txt"></pre>
+<h2>Típuskonverziós operátorok</h2>
+<p>Nézzük a klasszikus C-ben megismert típuskonverziót:</p>
+<pre class="sh_cpp" data-source="conversion/miscasting.cc"></pre>
+<p>Egy szó nélkül lefordítja:</p>
+<pre class="console" data-source="conversion/miscasting.txt"></pre>
+<p>Ez nem probléma, ha tudja az ember, hogy mit csinál, de jó lenne, ha
+meg tudnánk tenni ezt úgy is, hogy figyelmeztessen a rendszer:</p>
+<pre class="sh_cpp" data-source="conversion/castingerror.cc"></pre>
+<pre class="console" data-source="conversion/castingerror.txt"></pre>
+<p>Nem engedi, mert ez két teljesen különböző osztály.</p>
+<pre class="sh_cpp" data-source="conversion/staticcast.cc"></pre>
+<pre class="console" data-source="conversion/staticcast.txt"></pre>
+<p>Sajnos a <code class="sh_cpp">static_cast</code> engedi a bővítést
+is, cserébe viszont gyors, és nem dobja meg a program méretét:</p>
+<pre class="sh_cpp" data-source="conversion/downcast.cc"></pre>
+<pre class="console" data-source="conversion/downcast.txt"></pre>
+<p>A megoldás erre az esetre a <code class="sh_cpp">dynamic_cast</code>
+lenne, amelyhez be kell kapcsolni a fordítóban a futási idejű
+típusinformációt (RTTI, run-time type information). A példám sajnos nem úgy
+fut le, mint amit vártam: elvileg null pointert kellene visszaadnia, vagy
+kivételt dobnia (erről később), ehhez képest egyik sem történik meg:
+&bdquo;Segmentation fault&rdquo; üzenetet kapok.</p>
+<pre class="sh_cpp" data-source="conversion/dynamiccast.cc"></pre>
+<p>A <code class="sh_cpp">dynamic_cast</code> használata kerülendő, mert
+lassú, és megdobja a program méretét.</p>
+<p>A <code class="sh_cpp">const_cast</code> segítségével a <code
+class="sh_cpp">const</code> kulcsszótól szabadulhatunk meg. Használjuk
+módjával, csak nagyon indokolt esetben.</p>
+<pre class="sh_cpp" data-source="conversion/constcast.cc"></pre>
+<p>Megmaradt a <code class="sh_cpp">reinterpret_cast</code>, ami bármilyen
+mutatót bármilyen mutatóra vált kérdés és megfontolás nélkül, valamint akár
+<code class="sh_cpp">int</code> típusú értéket is hajlandó mutatóként
+értelmezni (ha elég széles a platformon: 64 bites fordítás esetén már nem
+<code class="sh_cpp">int</code>, hanem <code class="sh_cpp">long long</code>
+szélességű a mutató).</p>
+<pre class="sh_cpp" data-source="conversion/reinterpretcast.cc"></pre>
+<pre class="console" data-source="conversion/reinterpretcast.txt"></pre>
+</section>
+<section id="trycatch">
+<h1>Kivételkezelés</h1>
+<p>A hibakezelésre C-ben nincs igazán jó megoldás. Feláldozhatjuk a
+függvények visszatérési értékét, és visszatérhetnek hibakóddal, de nagyon
+megbonyolítja a kódot:</p>
+<pre class="sh_cpp">int calculate(Value **result)
+{
+    // f1, f2, f3 valamit kiszamol, ami el is szallhat
+    // 0-val valo visszateres a siker
+    // ossze akarjuk vonni oket
+    *result = new Value();
+    Value *merged = *result;
+    Value value;
+    int error;
+    error = f1(&amp;value);
+    if(error)
+    {
+        delete *result;
+        *result = 0;
+        return error;
+    }
+    
+    merged->merge(value);
+    
+    error = f2(&amp;value);
+    if(error)
+    {
+        delete *result;
+        *result = 0;
+        return error;
+    }
+    
+    merged->merge(value);
+    
+    error = f3(&amp;value);
+    if(error)
+    {
+        delete *result;
+        *result = 0;
+        return error;
+    }
+    
+    merged->merge(value);
+    
+    return 0;
+}</pre>
+<p>Erre alkották meg a kivételkezelést. Először maradjunk meg csak a
+hibakódoknál, de most már ne áldozzuk fel a visszatérési értéket.</p>
+<pre class="sh_cpp">Value* calculate()
+{
+    Value *result = new Value();
+    
+    try
+    {
+        result->merge(f1());
+        result->merge(f2());
+        result->merge(f3());
+    }
+    catch(int error)
+    {
+        delete result;
+        throw error;
+    }
+    
+    return result;
+}</pre>
+<p>Sokkal letisztultabb, átláthatóbb és egyszerűbb. A <code
+class="sh_cpp">throw</code> segítségével dobhatunk valamilyen értéket, amit
+a <code class="sh_cpp">try</code> <code class="sh_cpp">catch</code> ágával
+kaphatunk el. Nem kell feláldoznunk a függvény visszatérési értékét sem.</p>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
