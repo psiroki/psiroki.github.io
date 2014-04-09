@@ -814,6 +814,77 @@ hibakódoknál, de most már ne áldozzuk fel a visszatérési értéket.</p>
 class="sh_cpp">throw</code> segítségével dobhatunk valamilyen értéket, amit
 a <code class="sh_cpp">try</code> <code class="sh_cpp">catch</code> ágával
 kaphatunk el. Nem kell feláldoznunk a függvény visszatérési értékét sem.</p>
+<p>Dobni bármilyen típust lehet, minden típusra írhatunk külön <code
+class="sh_cpp">catch</code> ágat. Az ágak közül mindig a legelső for
+lefutni, ami illeszkedik az adott értékre, vagyis ha el szeretnénk kapni
+szülő- és gyermekosztályhoz is tartozó példányt, akkor az utóbbit kell előre
+írni, egyébként a szülőosztály példányát elkapó ág fog lefutni mindig.</p>
+<p>Kérdés még, hogy el lehet-e kapni azt, amiről nem tudjuk, hogy micsoda,
+vagyis &bdquo;minden mást.&rdquo;</p>
+<pre class="sh_cpp" data-source="trycatch/catchall.cc"></pre>
+<pre class="console" data-source="trycatch/catchall.txt"></pre>
+<h2>A dobott típusok megjelölése</h2>
+<p>A függvény szignatúrában megjelölhetjük, hogy milyen típusú értékeket
+dobhat a függvény. Ez nem jelenti azt, hogy a belső, jelöletlen függvények
+nem dobhatnak mást, vagy nagyon csúnya vége lesz:</p>
+<pre class="sh_cpp" data-source="trycatch/funthrow.cc"></pre>
+<pre class="console" data-source="trycatch/funthrow.txt"></pre>
+<p>A helyzet akkor is ugyanez, ha nem közvetlenül az <code
+class="sh_cpp">f()</code> függvény dobja a kivételt, hanem valamelyik másik,
+amelyik nem is deklarálta a dobott típusokat.</p>
+<p>Persze tekinthetjük égbekiáltó hibának, ha olyan kivételt dobnak, amire
+nem vagyunk egyáltalán felkészülve. Ez néhány esettől eltekintve követendő
+gyakorlatnak is tekinthető. Ha mégis szeretnénk kultúráltan, egy <code
+class="sh_cpp">catch</code> ágban kezelni, akkor használhatunk egy egyéni
+<code class="sh_cpp">unexpected</code> függvényt és a szabvány
+C++ könyvtár <code class="sh_cpp">std::bad_exception</code> osztályát:</p>
+<pre class="sh_cpp" data-source="trycatch/badthrow.cc"></pre>
+<pre class="console" data-source="trycatch/badthrow.txt"></pre>
+<h2>A szabvány C++ könyvtár kivétel osztályai</h2>
+<p>A szabvány C++ könyvtár deklarál pár kivétel osztályt. Nézzük ezeket
+header szerint.</p>
+<h3>&lt;exception&gt;</h3>
+<dl>
+<dt>exception</dt>
+<dd><p>A szabvány C++ kivételek ősosztálya. Természetesen ebből származtatva
+saját kivétel osztályokat is létrehozhatunk. Ha ilyet kapunk el, az alábbi
+függvényt használhatjuk, vagy ha saját osztályt hozunk létre,
+akkor az alábbi függvényt érdemes felülcsapni:</p>
+<pre class="sh_cpp">virtual const char* what() const throw()</pre>
+<p>Amíg ezen a szinten kapjuk el a kivételeket, ez a legtöbb, amit
+kiszedhetünk belőle: egy stringet. Természetesen ha saját osztályt
+készítünk, akkor további paraméterek átadására is lehetőség van.</p>
+<p>Ha saját osztályt készítünk a <code class="sh_cpp">what()</code> függvény
+felülcsapásán kívül érdemes copy konstruktort (ha a sima másolás nem felel
+meg) és esetleg <code class="sh_cpp">operator=</code> függvényt írnunk.</p></dd>
+<dt>bad_exception</dt>
+<dd>Ezt már ismerjük.</dd>
+</dl>
+<h3>&lt;new&gt;</h3>
+<dl>
+<dt>bad_alloc</dt>
+<dd>A <code class="sh_cpp">new</code> operátor dobja, ha nem sikerül az
+allokációt végrehajtania.</dd>
+</dl>
+<h3>&lt;stdexcept&gt;</h3>
+<dl>
+<dt>runtime_error</dt>
+<dd>Csak futás közben észrevehető hibák esetén dobja, pl. mert nem megfelelő értékek jöttek
+ki (pl. nullával való osztás).
+A gyermekosztályai:
+<code class="sh_cpp">range_error</code>,
+<code class="sh_cpp">overflow_error</code>,
+<code class="sh_cpp">underflow_error</code>.
+</dd>
+<dt>logic_error</dt>
+<dd>A program logikában történő hibák esetén dobja.
+A gyermekosztályai:
+<code class="sh_cpp">invalid_argument</code>,
+<code class="sh_cpp">out_of_range</code>,
+<code class="sh_cpp">length_error</code>,
+<code class="sh_cpp">domain_error</code>.
+</dd>
+</dl>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
