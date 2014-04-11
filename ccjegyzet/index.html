@@ -889,6 +889,55 @@ A gyermekosztályai:
 </section>
 <section id="templates">
 <h1>Sablonok</h1>
+<p>A konstansoknál és az <code class="sh_cpp">inline</code> függvényeknél
+megpróbáltunk megszabadulni a preprocesszoros megoldásoktól. Van azonban még
+egy terület, amit ezek nem képesek lefedni, amit a preprocesszoros direktíva
+igen: a típusfüggetlenség.</p>
+<p>Vegyük az alábbi kódrészletet:</p>
+<pre class="sh_cpp">#define MIN(a, b) ((a) &lt; (b) ? (a) : (b))</pre>
+<p>Ez ugyanúgy fog működni <code class="sh_cpp">int</code>-re,
+<code class="sh_cpp">float</code>-ra,
+<code class="sh_cpp">long long</code>-ra,
+vagy bármilyen osztályra, amely az <code
+class="sh_cpp">operator&lt;</code>-t definiálja. Erre megoldást nyújtanak a
+C++ sablonok: 
+</p>
+<pre class="sh_cpp" data-source="templates/minmax.cc"></pre>
+<pre class="console" data-source="templates/minmax.txt"></pre>
+<p>A sablon paramétereket a fordító kikövetkeztetheti, adhatunk
+alapértelmezett paramétereket (a következőben példában látható lesz),
+de megadhatjuk a paraméterek értékét közvetlenül is. Ez néhány esetben
+szükséges is lehet, ha pl. csak a függvény visszatérési értékének típusa
+függ a paramétertől, a fordító nemigen tudja kikövetkeztetni ilyen esetben.</p>
+<p>Nagyon fontos tudni, hogy a sablon függvények nem igazi függvények,
+önmagukban nem fordíthatóak. Ha sablonokat megosztva akarunk használni,
+teljes egészében a header állományba kell írni.</p>
+<p>A sablonok megalkotásakor először a <code class="sh_cpp">class</code>
+kulcsszót használták a típusok megjelöléséhez, hogy ne kelljen új kulcsszót
+bevezetni, de végül a szabványosítás során az egyértelműbb <code
+class="sh_cpp">typename</code> szó mellett döntöttek (amit egyéb okokból
+egyébként is be kellett vezetni), a <code
+class="sh_cpp">class</code> ilyen felhasználását viszont a kompatibilitás
+megőrzése végett meghagyták.</p>
+<p>Nézzük meg, hogyan néz ki egy sablon osztály deklarációja:</p>
+<pre class="sh_cpp" data-source="templates/markrel.cc"></pre>
+<pre class="console" data-source="templates/markrel.txt"></pre>
+<p>Látható, hogy a függvény implementációt is sablonként kell definiálnunk,
+ami elég körülményessé teszi a leírását, merő tömörségből és átláthatóságból
+a konstruktort leszámítva az összes függvény definíciót az osztályba írtam.</p>
+<h2>A szabvány sablon könyvtár</h2>
+<p>A standard template library (STL) sok hasznos generikus adatszerkezetet
+tartalmaz, hogy ezeknek a sziszifuszi lekódolásával már ne kelljen
+foglalkozni.</p>
+<p>Legyen az a feladat, hogy egy szöveges állományban kell megszámolnunk,
+hogy melyik szó hányszor szerepel és sorrendben kiírni úgy, hogy az első
+helyen a legritkább szó szerepeljen, a végére pedig a leggyakoribb szó
+kerüljön. Fárasztó munka lenne a nulláról megírni, de az STL segítségével
+könnyedén megoldható:</p>
+<pre class="sh_cpp" data-source="templates/stl.cc"></pre>
+<p>A <a target="attachment" href="templates/donut.txt">donut.txt</a> bemenetre
+esetén a válasza az <a target="attachment"
+href="templates/stl.txt">stl.txt</a>-ben található.</p>
 </section>
 </article>
 <script type="application/javascript" src="js/sh_cpp.js"></script>
