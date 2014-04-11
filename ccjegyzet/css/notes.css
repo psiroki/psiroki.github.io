@@ -5,6 +5,12 @@
 	}
 }
 
+@media print {
+	figure {
+		background-color: white;
+	}
+}
+
 p, li
 {
 	text-align: justify;
