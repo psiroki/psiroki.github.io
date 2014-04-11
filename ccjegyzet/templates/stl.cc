@@ -97,9 +97,10 @@ int main()
 			// (az elsotol kezdve halad egeszen a masodikig)
 			// a harmadik parametere az, ahova az eredmeny kerul
 			// (ahogy lathato, siman megengedett, hogy ugyanaz legyen)
-			// a forras minden elemere meghivja a negyedik parameterben megadott
-			// fuggvenyt (vagy osztalyt, ami a megfelelo formaju operator()-t
-			// tamogatja), es az eredmenyt kiirja
+			// a forras minden elemere meghivja a negyedik parameterben
+			// megadott fuggvenyt (vagy osztalyt, ami a megfelelo formaju
+			// operator()-t tamogatja), es a visszateresi erteket irja
+			// ki a megadott helyre
 			
 			// a tolower a std nevterben mar definialva van, ezert most
 			// kulon jelolom, hogy a globalis nevter tolower fuggvenyere
@@ -125,7 +126,9 @@ int main()
 	sort(order.begin(), order.end(), LessByValue<string, int>(words));
 	
 	// kiirjuk a vegeredmenyt
-	for(vector<string>::iterator orderIt = order.begin(); orderIt != order.end(); ++orderIt)
+	for(vector<string>::iterator orderIt = order.begin();
+		orderIt != order.end();
+		++orderIt)
 	{
 		map<string, int>::iterator it = words.find(*orderIt);
 		if(it != words.end())
