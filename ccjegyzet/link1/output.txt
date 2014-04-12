@@ -1,9 +1,0 @@
-$ clang -c link1.cc util.c 
-$ clang link1.o util.o -o link1
-Undefined symbols for architecture x86_64:
-  "bar(int)", referenced from:
-      _main in link1.o
-  "_quux", referenced from:
-      _bar in util.o
-ld: symbol(s) not found for architecture x86_64
-clang: error: linker command failed with exit code 1 (use -v to see invocation)

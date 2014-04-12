@@ -1,2 +1,0 @@
-Distance for line 1: 5837.43 km
-Distance for line 2: 6882.73 km

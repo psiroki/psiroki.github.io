@@ -1,8 +1,0 @@
-complex*double
-double*complex
-0.866 + 0.5i
-3 + 7i
-3.866 + 7.5i
-7.732 + 15i
-15.464 + 30i
-15.464 + 30i

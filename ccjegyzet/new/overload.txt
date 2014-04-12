@@ -1,3 +1,0 @@
-Szam: 5
-Szoveg: foo
-Pont: 3, 7

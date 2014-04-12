@@ -1,5 +1,0 @@
-t caught string: Hello World!
-main caught string: Hello World!
-t caught error code: 42
-t caught something else...
-main caught A: foobar
