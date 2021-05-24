@@ -1,0 +1,45 @@
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  background: #555 radial-gradient(circle at top, #555, #222) fixed;
+  color: #ddd;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: 'Gill Sans', 'Helvetica Neue', sans-serif;
+  font-size: 14pt;
+  line-height: 125%;
+}
+
+body {
+  overflow: hidden;
+  min-height: 100vh;
+  padding-left: 28px;
+  margin: 0 auto;
+  max-width: 800px;
+  box-sizing: border-box;
+  text-shadow: 0 1px 2px #0008;
+}
+
+h1 {
+  padding: 4px 0px 8px 8px;
+  border-left: 16px #0fd4e2 solid;
+  border-bottom: 4px #0fd4e2 solid;
+  border-bottom-left-radius: 4px;
+  box-shadow: 0 1px 2px #0008;
+}
+
+p, ul {
+  margin-right: 16px;
+}
+
+a {
+  color: #0fd4e2;
+  text-decoration: none;
+}
+
+li {
+  margin-top: 8px;
+}
